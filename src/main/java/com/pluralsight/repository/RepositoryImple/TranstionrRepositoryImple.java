@@ -2,8 +2,7 @@ package com.pluralsight.repository.RepositoryImple;
 
 import com.pluralsight.model.Transaction;
 import com.pluralsight.repository.TransactionRepository;
-import com.pluralsight.utils.TransactionUtil;
-import com.pluralsight.utils.UtilHeper;
+import com.pluralsight.utils.UtilHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -191,7 +190,7 @@ public class TranstionrRepositoryImple implements TransactionRepository {
                 """
                  \s\s\sdate\s\s\s|\s\s\stime\s\s\s|\s\s\sdescription\s\s\s|\s\s\svendor\s\s\s|\s\s\samount\s\s\s|
                  """;
-        transactionList.stream().forEach(UtilHeper::format);
+        transactionList.stream().forEach(UtilHelper::format);
 
     }
 }

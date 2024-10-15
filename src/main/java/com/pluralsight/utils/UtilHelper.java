@@ -2,7 +2,7 @@ package com.pluralsight.utils;
 
 import com.pluralsight.model.Transaction;
 
-public class UtilHeper {
+public class UtilHelper {
 
 
     public static void format(Transaction transaction) {
