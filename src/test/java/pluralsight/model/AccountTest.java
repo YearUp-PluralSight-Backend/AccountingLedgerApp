@@ -23,26 +23,20 @@ public class AccountTest {
    public void initializingTransaction() {
       transactionList = new ArrayList<>();
       Transaction transaction1 = new Transaction("Amazon", 2000, "Personal Computer",
-              LocalDate.now(), LocalTime.now(),
               LocalDate.now(), LocalTime.now());
 
       Transaction transaction2 = new Transaction("Best Buy", 1500, "Laptop",
-              LocalDate.now(), LocalTime.now(),
               LocalDate.now(), LocalTime.now());
 
       Transaction transaction3 = new Transaction("Walmart", 500, "Groceries",
-              LocalDate.now(), LocalTime.now(),
               LocalDate.now(), LocalTime.now());
 
       Transaction transaction4 = new Transaction("Apple Store", 1200, "iPhone",
-              LocalDate.now(), LocalTime.now(),
               LocalDate.now(), LocalTime.now());
 
       Transaction transaction5 = new Transaction("Target", 300, "Clothing",
-              LocalDate.now(), LocalTime.now(),
               LocalDate.now(), LocalTime.now());
       Transaction transaction6 = new Transaction("Amazon", 2000, "Personal Computer",
-              LocalDate.now(), LocalTime.now(),
               LocalDate.now(), LocalTime.now());
 
       transactionList.add(transaction1);

@@ -1,0 +1,48 @@
+    <!-- Reference:   https://logback.qos.ch/manual/configuration.html -->
+    <!-- Reference:   https://www.baeldung.com/logback#3-troubleshooting-configuration -->
+
+
+<configuration>
+    <!-- Console Appender for Debug Level -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- File Appender for Info and Higher Levels -->
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize></maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- Async Appender for File Logging -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE" />
+    </appender>
+
+    <!-- Root Logger Configuration -->
+    <root level="debug">
+        <!-- Asynchronous file appender -->
+        <appender-ref ref="ASYNC_FILE" />
+        <!-- Console appender for debug logging -->
+        <appender-ref ref="STDOUT" />
+    </root>
+
+
+    <logger name="com.pluralsight.service" level="DEBUG" />
+    <logger name="com.pluralsight.repository" level="INFO" />
+
+
+</configuration>

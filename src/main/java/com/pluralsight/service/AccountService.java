@@ -1,4 +1,4 @@
-package com.pluralsight.services;
+package com.pluralsight.service;
 
 public interface AccountService {
 }

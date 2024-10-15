@@ -1,6 +1,8 @@
 package com.pluralsight.repository;
 
 import com.pluralsight.model.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TransactionRepository {
+
+    Logger logger = LoggerFactory.getLogger(TransactionRepository.class);
 
     String FILENAME = "inventory.csv";
 
@@ -26,7 +30,7 @@ public interface TransactionRepository {
 
     Optional<ArrayList<Transaction>> getTransactionBetweenDates(LocalDate startDate, LocalDate endDate);
 
-    Optional<ArrayList<Transaction>> getTransactionBetweenTimes(LocalTime startDate, LocalTime endDate);
+    Optional<ArrayList<Transaction>> getTransactionBetweenTimes(LocalTime startTime, LocalTime endTime);
 
     Optional<Transaction> getTransactionByVendor(String vendorName);
 
@@ -38,7 +42,7 @@ public interface TransactionRepository {
      * create a {@code Product} to store the data
      * add the {@code Product} to the inventory list
      *
-     * @return
+     * @return inventory
      */
     default List<Transaction> getInventory() {
         List<Transaction> inventory = new ArrayList<>(); // create a list to store the products
@@ -46,6 +50,8 @@ public interface TransactionRepository {
         // read the file and add the content to the inventory list.  (try-catch resource release)
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILENAME))) {
             String line;
+            logger.info("Reading the csv file {}", FILENAME);
+
             while ((line = bufferedReader.readLine()) != null) {
 
                 String[] lineContent = line.split("\\|");
@@ -55,16 +61,23 @@ public interface TransactionRepository {
 
             }
         } catch (IOException e) {
+            logger.error("Failed to read from file " + FILENAME, e);
             throw new RuntimeException(e);
         }
+        logger.info("Finished reading the file {}", FILENAME);
+        logger.info("Loaded {} transactions from {}", inventory.size(), FILENAME);
         return inventory;
     }
 
+    /**
+     *  read the list and overwrite the csv file.
+     * @param transactionList
+     */
     default void updateCSVFile(List<Transaction> transactionList) {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("inventory.csv", true))) {
-
-            for (Transaction transaction: transactionList) {
+            logger.info("Updating the file {}", FILENAME);
+            for (Transaction transaction : transactionList) {
                 StringBuilder stringBuilder = new StringBuilder();
                 String line = stringBuilder.append("\n")
                         .append(transaction.getCreateDate())
@@ -82,7 +95,9 @@ public interface TransactionRepository {
 
             }
         } catch (IOException e) {
+            logger.error("Failed to update the file {}", FILENAME, e);
             throw new RuntimeException(e);
         }
+        logger.info("Successfully updated the file {}", FILENAME);
     }
 }
