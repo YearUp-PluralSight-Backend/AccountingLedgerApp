@@ -18,24 +18,6 @@ public interface TransactionRepository {
 
     String FILENAME = "inventory.csv";
 
-    Optional<Transaction> saveTransaction(Transaction transaction);
-
-    Optional<Boolean> updateTransaction(UUID id, Transaction transaction);
-
-    Optional<Boolean> deleteTransaction(UUID id);
-
-    Optional<Transaction> getTransactionById(UUID id);
-
-    Optional<List<Transaction>> getTransactions();
-
-    Optional<ArrayList<Transaction>> getTransactionBetweenDates(LocalDate startDate, LocalDate endDate);
-
-    Optional<ArrayList<Transaction>> getTransactionBetweenTimes(LocalTime startTime, LocalTime endTime);
-
-    Optional<Transaction> getTransactionByVendor(String vendorName);
-
-    void printTransaction();
-
     /**
      * read the file inventory.csv
      * get the content and split them by |.
@@ -57,7 +39,7 @@ public interface TransactionRepository {
                 String[] lineContent = line.split("\\|");
 //                2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
 //     public Transaction(String vendor, double amount, String description, int numberOfTransactions, LocalDate updatedDate, LocalTime updatedTime)
-                inventory.add(new Transaction(lineContent[3], Double.parseDouble(lineContent[4]), lineContent[2], LocalDate.now(), LocalTime.now()));
+                inventory.add(new Transaction(lineContent[3], Double.parseDouble(lineContent[4]), lineContent[2]));
 
             }
         } catch (IOException e) {
@@ -80,9 +62,9 @@ public interface TransactionRepository {
             for (Transaction transaction : transactionList) {
                 StringBuilder stringBuilder = new StringBuilder();
                 String line = stringBuilder.append("\n")
-                        .append(transaction.getCreateDate())
+                        .append(transaction.getCreatedDatetime().toLocalDate())
                         .append("|")
-                        .append(transaction.getCreateTime())
+                        .append(transaction.getCreatedDatetime().toLocalTime())
                         .append("|")
                         .append(transaction.getDescription())
                         .append("|")

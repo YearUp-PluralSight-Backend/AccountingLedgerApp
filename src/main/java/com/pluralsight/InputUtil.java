@@ -1,6 +1,4 @@
-package com.pluralsight.utils;
-
-import com.pluralsight.model.Transaction;
+package com.pluralsight;
 
 public class UtilHelper {
 
@@ -11,8 +9,8 @@ public class UtilHelper {
                 """
                 \s\s\s%s\s\s\s|\s\s\s%s\s\s\s|\s\s\s%s\s\s\s|\s\s\s%s\s\s\s|\s\s\s%.02f\s\s\s|
                 """.formatted(
-                        transaction.getCreateDate(),
-                        transaction.getCreateTime(),
+                        transaction.getCreatedDatetime().toLocalDate(),
+                        transaction.getCreatedDatetime().toLocalTime(),
                         transaction.getDescription(),
                         transaction.getVendor(),
                         transaction.getAmount());
