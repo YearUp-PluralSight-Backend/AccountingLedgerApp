@@ -13,6 +13,8 @@ public class InputUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(InputUtil.class);
     public final static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US);
+    public final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US);
+
     private static Scanner scanner = new Scanner(System.in);
 
     /**
