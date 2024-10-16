@@ -11,6 +11,7 @@ import java.util.List;
 public class Report {
 
     private static final Logger logger = LoggerFactory.getLogger(Report.class);
+
     private List<Transaction> transactionList;
     private List<Transaction> transactionListWithDeposit;
     private List<Transaction> transactionListWithPayment;
@@ -109,6 +110,7 @@ public class Report {
 
 
 
+
     }
 
     private void generatePreviousMonthReport() {
@@ -122,58 +124,21 @@ public class Report {
     }
 
     private void searchByVendorName(String vendorName) {
-
-        for (Transaction transaction: transactionList) {
-            if (transaction.getVendor().equalsIgnoreCase(vendorName)) {
-                System.out.println(transaction);
-            } else {
-                System.out.println("No data that matched the vendor name: " + vendorName);
-            }
-        }
+        transactionList.stream().filter(t -> t.getVendor().equalsIgnoreCase(vendorName)).forEach(System.out::println);
+    }
+    private void searchByStartDate(LocalDate startDate) {
+        transactionList.stream().filter(t -> t.getCreatedDateTime().toLocalDate().isAfter(startDate)).forEach(System.out::println);
     }
 
-    private void searchByStartDate(LocalDate parse) {
-
-        String sDate = InputUtil.promptForString("Enter the Start Date: ()");
-        LocalDate startDate = LocalDate.parse(sDate, InputUtil.dateTimeFormatter);
-        for (Transaction transaction: transactionList) {
-            if (transaction.getCreatedDateTime().toLocalDate().isAfter(startDate)) {
-                System.out.println(transaction);
-            }
-        }
-    }
-
-    private void searchByEndDate(LocalDate parse) {
-
-        String eDate = InputUtil.promptForString("Enter the End Date: ()");
-        LocalDate endDate = LocalDate.parse(eDate, InputUtil.dateTimeFormatter);
-        for (Transaction transaction: transactionList) {
-            if (transaction.getCreatedDateTime().toLocalDate().isBefore(endDate)) {
-                System.out.println(transaction);
-            }
-        }
-
+    private void searchByEndDate(LocalDate endDate) {
+        transactionList.stream().filter(t -> t.getCreatedDateTime().toLocalDate().isBefore(endDate)).forEach(System.out::println);
     }
 
     private void searchByDescription(String description) {
-
-        for (Transaction transaction: transactionList) {
-            if (transaction.getDescription().equalsIgnoreCase(description)) {
-                System.out.println(transaction);
-            } else {
-                System.out.println("No data that matched the description: " + description);
-            }
-        }
+        transactionList.stream().filter(t -> t.getDescription().equalsIgnoreCase(description)).forEach(System.out::println);
     }
 
     private void searchByAmount(double amount) {
-
-        for (Transaction transaction: transactionList) {
-            if (transaction.getAmount() == amount) {
-                System.out.println(transaction);
-            } else {
-                System.out.println("No data that matched the amount: " + amount);
-            }
-        }
+        transactionList.stream().filter(t -> t.getAmount() == amount).forEach(System.out::println);
     }
 }
