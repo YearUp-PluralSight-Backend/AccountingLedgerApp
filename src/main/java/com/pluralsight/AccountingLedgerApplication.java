@@ -1,31 +1,48 @@
 package com.pluralsight;
 
-
 import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The AccountingLedgerAPP class is the main class for the Accounting Ledger Application.
+ * It handles the initialization and main menu navigation of the application.
+ */
 public class AccountingLedgerAPP {
 
-
+    // Logger instance for logging information
     private static final Logger logger = LoggerFactory.getLogger(AccountingLedgerAPP.class);
+    // Singleton instance of the Ledger class
     private static final Ledger ledger = Ledger.getInstance();
+    // Singleton instance of the AccountingLedgerAPP class
     private static AccountingLedgerAPP accountingLedgerApp;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private AccountingLedgerAPP() {
     }
-    public static AccountingLedgerAPP getInstance() {
 
+    /**
+     * Returns the singleton instance of the AccountingLedgerAPP class.
+     * If the instance is null, it initializes it.
+     *
+     * @return The singleton instance of AccountingLedgerAPP
+     */
+    public static AccountingLedgerAPP getInstance() {
         if (accountingLedgerApp == null) {
             accountingLedgerApp = new AccountingLedgerAPP();
         }
         return accountingLedgerApp;
     }
 
+    /**
+     * Displays the home screen menu and processes user commands.
+     * The loop continues until the user chooses to exit.
+     */
     public void storeHomeScreen() {
-
         boolean flag = true;
-        while(flag) {
+        while (flag) {
             try {
                 homeScreenMenu();
                 String command = InputUtil.promptForString(" (StoreHomeScreen) Enter your Option: ").toUpperCase();
@@ -33,18 +50,19 @@ public class AccountingLedgerAPP {
                     case "D" -> ledger.addDeposit();    // Add the Deposit
                     case "P" -> ledger.makePayment();   // Make a Payment
                     case "L" -> ledger.ledgerScreen();  // Display Ledger Screen
-                    case "X" -> flag = false;
+                    case "X" -> flag = false;           // Exit the application
                     default -> System.out.println("Invalid Option. Please choose between (D, P, L, X)\n");
                 }
             } catch (Exception e) {
                 logger.info("Wrong command or Option!");
                 e.printStackTrace();
-
             }
         }
-
     }
 
+    /**
+     * Displays the home screen menu options to the user.
+     */
     private static void homeScreenMenu() {
         String options =
                 """
