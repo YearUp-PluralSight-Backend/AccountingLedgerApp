@@ -1,20 +1,17 @@
-package com.pluralsight.repository;
+package com.pluralsight;
 
-import com.pluralsight.model.Transaction;
+import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
-public interface TransactionRepository {
+public interface Repository {
 
-    Logger logger = LoggerFactory.getLogger(TransactionRepository.class);
+    Logger logger = LoggerFactory.getLogger(Repository.class);
 
     String FILENAME = "inventory.csv";
 
@@ -33,18 +30,26 @@ public interface TransactionRepository {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(FILENAME))) {
             String line;
             logger.info("Reading the csv file {}", FILENAME);
-
+            int skip = 0;
             while ((line = bufferedReader.readLine()) != null) {
 
+                if (skip == 0) { // skip the first line
+                    skip++;
+                    continue;
+                }
+
+                if (line.isBlank() || line.isEmpty()) continue;
                 String[] lineContent = line.split("\\|");
+
 //                2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
-//     public Transaction(String vendor, double amount, String description, int numberOfTransactions, LocalDate updatedDate, LocalTime updatedTime)
-                inventory.add(new Transaction(lineContent[3], Double.parseDouble(lineContent[4]), lineContent[2]));
+//     public Transaction(LocalDateTime, String vendor, double amount, String description)
+                LocalDateTime createdTime = LocalDateTime.parse((lineContent[0] + " " + lineContent[1]), InputUtil.dateTimeFormatter);
+                inventory.add(new Transaction(createdTime, lineContent[2], lineContent[3], Double.parseDouble(lineContent[4])));
 
             }
         } catch (IOException e) {
             logger.error("Failed to read from file " + FILENAME, e);
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         logger.info("Finished reading the file {}", FILENAME);
         logger.info("Loaded {} transactions from {}", inventory.size(), FILENAME);
@@ -56,15 +61,35 @@ public interface TransactionRepository {
      * @param transactionList
      */
     default void updateCSVFile(List<Transaction> transactionList) {
-
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("inventory.csv", true))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("inventory.csv"))) {
             logger.info("Updating the file {}", FILENAME);
+
+            // Write the header of the content
+            StringBuilder header = new StringBuilder();
+            bufferedWriter.write(header
+                    .append("|")
+                    .append("Date")
+                    .append("|")
+                    .append("Time")
+                    .append("|")
+                    .append("Description")
+                    .append("|")
+                    .append("VendorName")
+                    .append("|")
+                    .append("Amount")
+                    .toString()
+            );
             for (Transaction transaction : transactionList) {
-                StringBuilder stringBuilder = new StringBuilder();
-                String line = stringBuilder.append("\n")
-                        .append(transaction.getCreatedDatetime().toLocalDate())
+
+
+                if (transaction == null) continue;
+                // Write the contents
+                StringBuilder content = new StringBuilder();
+                String line = content
+                        .append("\n")
+                        .append(transaction.getCreatedDateTime().toLocalDate())
                         .append("|")
-                        .append(transaction.getCreatedDatetime().toLocalTime())
+                        .append(transaction.getCreatedDateTime().toLocalTime())
                         .append("|")
                         .append(transaction.getDescription())
                         .append("|")
@@ -78,7 +103,7 @@ public interface TransactionRepository {
             }
         } catch (IOException e) {
             logger.error("Failed to update the file {}", FILENAME, e);
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         logger.info("Successfully updated the file {}", FILENAME);
     }

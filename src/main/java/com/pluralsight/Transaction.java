@@ -1,31 +1,47 @@
-package com.pluralsight.model;
+package com.pluralsight;
 
-import java.time.LocalDate;
+import com.pluralsight.utils.InputUtil;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.UUID;
+
 
 public class Transaction {
 
+
+
     // Properties (fields) of the Transaction class
+    private LocalDateTime createdDateTime;
+    private String description;
     private String vendor;
     private double amount;
-    private String description;
-    private LocalDateTime createdDatetime;
+
 
     // Constructor to initialize Transaction object
     public Transaction() {
     }
 
-    public Transaction(String vendor, double amount, String description) {
+    public Transaction(LocalDateTime createdDateTime,String description, String vendor, double amount) {
+        this.createdDateTime = createdDateTime;
+        this.description = description;
         this.vendor = vendor;
         this.amount = amount;
-        this.createdDatetime = LocalDateTime.now();
-        this.description = description;
 
     }
 
     // Getter and setter methods for each property
+
+
+    public LocalDateTime getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getVendor() {
         return vendor;
@@ -43,28 +59,17 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getCreatedDatetime() {
-        return createdDatetime;
-    }
-
+    //  Override the toString method to display the Transaction
     @Override
     public String toString() {
-        return String.format(
-                "Transaction {%n" +
-                        "    vendor: '%s',%n" +
-                        "    amount: %.2f,%n" +
-                        "    description: '%s',%n" +
-                        "    createdDateTime: %s%n" +
-                        "}",
-                vendor, amount, description, createdDatetime
-        );
+        StringBuilder sb = new StringBuilder();
+        sb.append("Transaction {")
+                .append("\n    createdDateTime: ").append(createdDateTime.format(InputUtil.dateTimeFormatter))
+                .append("\n    vendor: '").append(vendor).append('\'')
+                .append("\n    amount: ").append(String.format("%.2f", amount))
+                .append("\n    description: '").append(description).append('\'')
+                .append("\n}");
+        return sb.toString();
     }
+
 }
