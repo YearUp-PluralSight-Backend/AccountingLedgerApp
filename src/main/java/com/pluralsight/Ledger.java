@@ -41,6 +41,7 @@ public class Ledger implements LedgerOperations {
      * Default constructor to initialize the Ledger object and populate initial data.
      */
     public Ledger() {
+        this.balance = 0;
         initializingData(transactionList);
     }
 
@@ -212,6 +213,10 @@ public class Ledger implements LedgerOperations {
                     case "ALL" -> ledger.displayAllEntries();                                                       // Display all entries
                     case "D" -> ledger.displayDepositEntries();                                                     // Display deposit entries
                     case "P" -> ledger.displayPaymentEntries();                                                     // Display payment entries
+                    case "B" -> {
+                        double balance = ledger.showBalance();
+                        System.out.println();
+                    }
                     case "R" -> {
                         report.setUpData(transactionList, transactionListWithDeposit, transactionListWithPayment);  // Setup the data for report screen
                         report.reportScreen();                                                                      // Display report screen
@@ -224,6 +229,15 @@ public class Ledger implements LedgerOperations {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    // Additional Method
+    private double showBalance() {
+
+        double depositSum = transactionListWithDeposit.stream().mapToDouble(Transaction::getAmount).sum();
+        double paymentSum = transactionListWithPayment.stream().mapToDouble(Transaction::getAmount).sum();
+
+        return depositSum - paymentSum;
     }
 
     /**

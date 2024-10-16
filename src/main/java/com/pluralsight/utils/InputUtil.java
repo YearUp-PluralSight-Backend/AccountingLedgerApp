@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 public class InputUtil {
 
+
+    // For
     private static final Logger logger = LoggerFactory.getLogger(InputUtil.class);
     public final static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US);
     public final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US);
@@ -152,5 +154,12 @@ public class InputUtil {
         }
 
         return null;
+    }
+
+    public static void printOutWithFormat(Double d) {
+
+
+
+
     }
 }
