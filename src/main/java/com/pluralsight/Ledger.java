@@ -149,6 +149,7 @@ public class Ledger implements LedgerOperations{
         Transaction transaction = userInput();
         if (transaction == null)  {
             Thread.sleep(1000);
+            return;
         };
         transaction.setAmount(transaction.getAmount() * -1);
         transactionList.add(transaction);
@@ -165,6 +166,7 @@ public class Ledger implements LedgerOperations{
         Transaction transaction = userInput();
         if (transaction == null)  {
             Thread.sleep(1000);
+            return;
         };
         transactionList.add(transaction);
         transactionListWithPayment.add(transaction);
@@ -176,9 +178,7 @@ public class Ledger implements LedgerOperations{
     @Override
     public void displayPaymentEntries() throws InterruptedException {
 
-        for (Transaction transaction: transactionListWithPayment) {
-            System.out.println(transaction);
-        }
+        transactionListWithPayment.stream().forEach(System.out::println);
         Thread.sleep(2000);
 
     }
@@ -186,24 +186,20 @@ public class Ledger implements LedgerOperations{
     @Override
     public void displayDepositEntries() throws InterruptedException {
 
-        for (Transaction transaction: transactionListWithDeposit) {
-            System.out.println(transaction);
-        }
+        transactionListWithDeposit.stream().forEach(System.out::println);
         Thread.sleep(2000);
 
     }
 
     @Override
     public void displayAllEntries() throws InterruptedException {
-
-        for (Transaction transaction: transactionList) {
-            System.out.println(transaction);
-        }
+        transactionList.stream().forEach(System.out::println);
         Thread.sleep(2000);
     }
 
     @Override
     public void initializingData(List<Transaction> transactions) {
+
         for (Transaction transaction: transactions) {
             if (isNegative(transaction.getAmount())) {
                 transactionListWithDeposit.add(transaction);

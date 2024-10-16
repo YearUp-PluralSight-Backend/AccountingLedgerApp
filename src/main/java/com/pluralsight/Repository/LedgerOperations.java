@@ -12,6 +12,11 @@ import java.util.List;
 
 public interface LedgerOperations {
 
+    // For logging
+    Logger logger = LoggerFactory.getLogger(LedgerOperations.class);
+
+    String FILENAME = "inventory.csv";
+
     // Display ledger menu options
     void ledgerScreenMenu();
 
@@ -38,11 +43,6 @@ public interface LedgerOperations {
 
     // Helper method to check if a number is negative
     boolean isNegative(double number);
-
-
-    Logger logger = LoggerFactory.getLogger(LedgerOperations.class);
-
-    String FILENAME = "inventory.csv";
 
     /**
      * read the file inventory.csv
