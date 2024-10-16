@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import com.pluralsight.Repository.ReportOperations;
 import com.pluralsight.model.Transaction;
 import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 import static java.time.temporal.TemporalAdjusters.*;
 
 
-public class Report {
+public class Report implements ReportOperations {
 
     private static final Logger logger = LoggerFactory.getLogger(Report.class);
 
@@ -96,18 +97,17 @@ public class Report {
             }
         }
     }
-
-    private void generateMonthToDateReport() {
-
+    @Override
+    public void generateMonthToDateReport() {
 
         // https://stackoverflow.com/questions/9382897/how-to-get-start-and-end-date-of-a-year
 
         LocalDate today = LocalDate.now();
-
+        LocalDate firstDayOfTheMonth = today.with(firstDayOfMonth()); // Get the first day of the current month
         System.out.println("Now:" + today);
+        System.out.println("firstDayOfTheMonth: " + firstDayOfTheMonth);
         transactionList.parallelStream().filter(t -> {
-            LocalDate firstDayOfTheMonth = today.with(firstDayOfMonth()); // Get the first day of the current month
-            if (t.getCreatedDateTime().toLocalDate().isAfter(firstDayOfTheMonth) && t.getCreatedDateTime().toLocalDate().isBefore(t.getCreatedDateTime().toLocalDate()))
+            if (t.getCreatedDateTime().toLocalDate().isAfter(firstDayOfTheMonth) && t.getCreatedDateTime().toLocalDate().isBefore(today) || t.getCreatedDateTime().toLocalDate().isEqual(firstDayOfTheMonth))
                 return true;
             return false;
         }).forEach(System.out::println);
@@ -115,7 +115,8 @@ public class Report {
 
     }
 
-    private void generatePreviousMonthReport() {
+    @Override
+    public void generatePreviousMonthReport() {
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime firstDayOfMonth = now.minusMonths(1).with(firstDayOfMonth());
@@ -138,8 +139,8 @@ public class Report {
             sortedTransactions.stream().forEach(System.out::println);
         }
     }
-
-    private void generateYearToDateReport() {
+    @Override
+    public void generateYearToDateReport() {
 
         // https://stackoverflow.com/questions/9382897/how-to-get-start-and-end-date-of-a-year
         LocalDateTime now = LocalDateTime.now();
@@ -160,8 +161,8 @@ public class Report {
         }
 
     }
-
-    private void generatePreviousYearReport() {
+    @Override
+    public void generatePreviousYearReport() {
 
         // https://stackoverflow.com/questions/9382897/how-to-get-start-and-end-date-of-a-year
 
@@ -185,12 +186,12 @@ public class Report {
 
 
     }
-
-    private void searchByVendorName(String vendorName) {
+    @Override
+    public void searchByVendorName(String vendorName) {
         transactionList.parallelStream().filter(t -> t.getVendor().equalsIgnoreCase(vendorName)).forEach(System.out::println);
     }
-
-    private void customSearch(LocalDate startDate, LocalDate endDate, String description, String vendorName, double amount) throws InterruptedException {
+    @Override
+    public void customSearch(LocalDate startDate, LocalDate endDate, String description, String vendorName, double amount) throws InterruptedException {
         for (Transaction transaction : transactionList) {
             if (transaction.getCreatedDateTime().toLocalDate().isAfter(startDate) && transaction.getCreatedDateTime().toLocalDate().isBefore(endDate) &&
                     isEqualWithString(transaction.getVendor(), vendorName) && isEqualWithString(transaction.getDescription(), description) &&

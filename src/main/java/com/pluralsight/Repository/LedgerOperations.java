@@ -1,5 +1,7 @@
 package com.pluralsight.Repository;
 
+import com.pluralsight.Ledger;
+import com.pluralsight.Report;
 import com.pluralsight.model.Transaction;
 import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
@@ -9,13 +11,24 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public interface LedgerOperations {
 
     // For logging
     Logger logger = LoggerFactory.getLogger(LedgerOperations.class);
-
     String FILENAME = "inventory.csv";
+
+    // Singleton instance of the Report class
+     Report report = Report.getInstance();
+
+    // List of all transactions
+    List<Transaction> transactionList = LedgerOperations.getInventory();
+    // List of deposit transactions
+    List<Transaction> transactionListWithDeposit = new ArrayList<>();
+    // List of payment transactions
+    List<Transaction> transactionListWithPayment = new ArrayList<>();
+
 
     // Display ledger menu options
     void ledgerScreenMenu();

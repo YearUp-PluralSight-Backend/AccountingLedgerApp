@@ -107,13 +107,17 @@ public class Transaction {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Transaction {")
-                .append("\n    createdDateTime: ").append(createdDateTime.format(InputUtil.dateTimeFormatter))
-                .append("\n    vendor: '").append(vendor).append('\'')
-                .append("\n    amount: ").append(String.format("%.2f", amount))
-                .append("\n    description: '").append(description).append('\'')
-                .append("\n}");
-        return sb.toString();
+        return """
+               |%s|%s|%s|%.2f|
+               """.formatted(createdDateTime.format(InputUtil.dateTimeFormatter), description, vendor, amount);
+
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("")
+//                .append("\s\s\s|\s\s\s").append(createdDateTime.format(InputUtil.dateTimeFormatter))
+//                .append("\s\s\s|\s\s\s").append(vendor).append('\'')
+//                .append("\s\s\s|\s\s\s").append(String.format("%.2f", amount))
+//                .append("\s\s\s|\s\s\s").append(description).append('\'')
+//                .append("\s\s\s|\s\s\s");
+//        return sb.toString();
     }
 }
