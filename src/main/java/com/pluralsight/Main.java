@@ -1,6 +1,5 @@
 package com.pluralsight;
 
-import com.pluralsight.utils.InputUtil;
 
 /**
  * The Main class serves as the entry point for the application.
