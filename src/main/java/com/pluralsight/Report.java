@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import com.pluralsight.model.Transaction;
 import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,8 +99,13 @@ public class Report {
     private void generateMonthToDateReport() {
 
         LocalDate today = LocalDate.now();
-
-        for (Transaction transaction)
+        transactionList.parallelStream().filter(t -> {
+            Month month = t.getCreatedDateTime().getMonth();
+            int year = t.getCreatedDateTime().getYear();
+            LocalDate firstDayOfTheMonth = today.withDayOfMonth(1); // Get the first day of the current month
+            if (t.getCreatedDateTime().toLocalDate().isAfter(firstDayOfTheMonth) && t.getCreatedDateTime().toLocalDate().isBefore(t.getCreatedDateTime().toLocalDate())) return  true;
+            return false;
+        }).forEach(System.out::println);
 
 
 

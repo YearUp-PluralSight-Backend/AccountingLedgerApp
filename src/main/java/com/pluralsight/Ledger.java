@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import com.pluralsight.model.Transaction;
+import com.pluralsight.Repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +12,7 @@ import java.util.UUID;
 
 import static com.pluralsight.utils.InputUtil.*;
 
-public class Ledger implements Repository{
+public class Ledger implements LedgerOperations{
 
     // Properties (fields) of the Account class
     private static final Logger logger = LoggerFactory.getLogger(Ledger.class);
@@ -18,11 +20,10 @@ public class Ledger implements Repository{
     private static Ledger ledger;
     private UUID id;
     private double balance;
-    private List<Transaction> transactionList = getInventory();
+    private List<Transaction> transactionList = LedgerOperations.getInventory();
     private List<Transaction> transactionListWithDeposit = new ArrayList<>();
     private List<Transaction> transactionListWithPayment = new ArrayList<>();
     private LocalDateTime createdDateTime;
-
 
     // Constructor to initialize Account object
     public Ledger() {
@@ -99,7 +100,8 @@ public class Ledger implements Repository{
         return sb.toString();
     }
 
-    public static void ledgerScreenMenu() {
+    @Override
+    public void ledgerScreenMenu() {
         String options =
                 """
                 =========================================================================
@@ -114,6 +116,7 @@ public class Ledger implements Repository{
         System.out.println(options);
     }
 
+    @Override
     public void ledgerScreen() {
         while(true) {
             try {
@@ -139,6 +142,7 @@ public class Ledger implements Repository{
     }
 
     // add deposit
+    @Override
     public void addDeposit() throws InterruptedException {
 
         // 2023-04-15 10:13:25
@@ -149,11 +153,12 @@ public class Ledger implements Repository{
         transaction.setAmount(transaction.getAmount() * -1);
         transactionList.add(transaction);
         transactionListWithDeposit.add(transaction);
-        updateCSVFile(transactionList);
+        LedgerOperations.updateCSVFile(transactionList);
         Thread.sleep(1000);
 
     }
 
+    @Override
     public void makePayment() throws InterruptedException {
 
         // 2023-04-15 10:13:25
@@ -163,12 +168,13 @@ public class Ledger implements Repository{
         };
         transactionList.add(transaction);
         transactionListWithPayment.add(transaction);
-        updateCSVFile(transactionList);
+        LedgerOperations.updateCSVFile(transactionList);
         Thread.sleep(1000);
 
     }
 
-    private void displayPaymentEntries() throws InterruptedException {
+    @Override
+    public void displayPaymentEntries() throws InterruptedException {
 
         for (Transaction transaction: transactionListWithPayment) {
             System.out.println(transaction);
@@ -177,7 +183,8 @@ public class Ledger implements Repository{
 
     }
 
-    private void displayDepositEntries() throws InterruptedException {
+    @Override
+    public void displayDepositEntries() throws InterruptedException {
 
         for (Transaction transaction: transactionListWithDeposit) {
             System.out.println(transaction);
@@ -186,7 +193,8 @@ public class Ledger implements Repository{
 
     }
 
-    private void displayAllEntries() throws InterruptedException {
+    @Override
+    public void displayAllEntries() throws InterruptedException {
 
         for (Transaction transaction: transactionList) {
             System.out.println(transaction);
@@ -194,7 +202,8 @@ public class Ledger implements Repository{
         Thread.sleep(2000);
     }
 
-    private void initializingData(List<Transaction> transactions) {
+    @Override
+    public void initializingData(List<Transaction> transactions) {
         for (Transaction transaction: transactions) {
             if (isNegative(transaction.getAmount())) {
                 transactionListWithDeposit.add(transaction);
@@ -205,7 +214,8 @@ public class Ledger implements Repository{
         }
     }
 
-    private static boolean isNegative(double number) {
+    @Override
+    public boolean isNegative(double number) {
         return number < 0;
     }
 

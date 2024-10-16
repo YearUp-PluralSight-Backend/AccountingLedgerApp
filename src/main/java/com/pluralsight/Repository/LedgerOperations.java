@@ -1,5 +1,6 @@
-package com.pluralsight;
+package com.pluralsight.Repository;
 
+import com.pluralsight.model.Transaction;
 import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +10,37 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Repository {
+public interface LedgerOperations {
 
-    Logger logger = LoggerFactory.getLogger(Repository.class);
+    // Display ledger menu options
+    void ledgerScreenMenu();
+
+    // Display the ledger screen
+    void ledgerScreen();
+
+    // Add a deposit transaction
+    void addDeposit() throws InterruptedException;
+
+    // Make a payment transaction
+    void makePayment() throws InterruptedException;
+
+    // Display payment entries
+    void displayPaymentEntries() throws InterruptedException;
+
+    // Display deposit entries
+    void displayDepositEntries() throws InterruptedException;
+
+    // Display all entries
+    void displayAllEntries() throws InterruptedException;
+
+    // Initialize data into specific lists based on transaction amounts
+    void initializingData(List<Transaction> transactions);
+
+    // Helper method to check if a number is negative
+    boolean isNegative(double number);
+
+
+    Logger logger = LoggerFactory.getLogger(LedgerOperations.class);
 
     String FILENAME = "inventory.csv";
 
@@ -23,7 +52,7 @@ public interface Repository {
      *
      * @return inventory
      */
-    default List<Transaction> getInventory() {
+    static List<Transaction> getInventory() {
         List<Transaction> inventory = new ArrayList<>(); // create a list to store the products
 
         // read the file and add the content to the inventory list.  (try-catch resource release)
@@ -60,7 +89,7 @@ public interface Repository {
      *  read the list and overwrite the csv file.
      * @param transactionList
      */
-    default void updateCSVFile(List<Transaction> transactionList) {
+    static void updateCSVFile(List<Transaction> transactionList) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("inventory.csv"))) {
             logger.info("Updating the file {}", FILENAME);
 
