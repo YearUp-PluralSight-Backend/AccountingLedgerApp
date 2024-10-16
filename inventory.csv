@@ -1,25 +1,68 @@
-|Date|Time|Description|VendorName|Amount
-2023-03-10|09:45:10|laptop|dell|-1299.5
-2023-02-22|14:30:45|smartphone|samsung|799.99
-2023-01-18|11:20:35|tablet|lenovo|499.99
-2023-06-05|08:55:20|headphones|sony|-199.95
-2023-07-10|16:15:30|monitor|lg|299.99
-2023-08-22|17:45:50|keyboard|logitech|89.99
-2023-09-12|13:10:05|mouse|microsoft|49.99
-2023-10-01|18:05:15|camera|canon|-1299.0
-2023-11-05|12:25:40|printer|hp|159.99
-2023-04-15|10:13:25|iphone 19|Apple|-1299.99
-2023-04-15|10:13:25|pc|apple|999.99
-2023-03-10|09:45:10|laptop|dell|1299.5
-2023-02-22|14:30:45|smartphone|samsung|-799.99
-2023-01-18|11:20:35|tablet|lenovo|499.99
-2023-06-05|08:55:20|headphones|sony|199.95
-2023-07-10|16:15:30|monitor|lg|-299.99
-2023-08-22|17:45:50|keyboard|logitech|89.99
-2023-09-12|13:10:05|mouse|microsoft|49.99
-2023-10-01|18:05:15|camera|canon|-1299.0
-2023-11-05|12:25:40|printer|hp|159.99
-2023-04-15|10:13:25|iphone 19|Apple|-1299.99
-2023-04-15|10:13:25|parts for car|Amazon|100.0
-2023-03-15|08:13:25|computer|Google|-999.99
-2022-03-20|08:13:25|model Y|Tesla|-50000.0
+2023-01-10|09:35:20|high-performance laptop|dell|1399.75
+2023-01-18|11:20:35|versatile tablet|lenovo|479.49
+2023-02-05|14:10:45|professional-grade camera|canon|-1399.99
+2023-02-22|14:30:45|premium smartphone|samsung|-849.49
+2023-03-10|09:45:10|gaming laptop|dell|1349.50
+2023-03-15|12:25:30|all-in-one printer|hp|169.99
+2023-03-20|08:13:25|luxury electric car model Y|Tesla|-51000.00
+2023-04-10|10:20:15|innovative tablet|microsoft|629.99
+2023-04-15|10:13:25|latest iphone model 19|apple|-1350.00
+2023-04-15|10:13:25|powerful personal computer|apple|1099.99
+2023-05-05|16:25:30|noise-canceling headphones|sony|209.99
+2023-05-18|13:15:45|sleek monitor for gaming|samsung|359.99
+2023-06-05|08:55:20|premium headphones|sony|209.99
+2023-06-10|10:45:35|affordable laptop|acer|-849.99
+2023-07-10|16:15:30|high-resolution monitor|lg|-289.99
+2023-07-15|17:25:50|mechanical keyboard|logitech|79.99
+2023-08-05|14:35:25|high-quality camera|sony|-1399.99
+2023-08-22|17:45:50|gaming keyboard|logitech|99.49
+2023-09-12|13:10:05|ergonomic mouse|microsoft|39.99
+2023-09-25|10:50:30|cutting-edge smartphone|huawei|-649.49
+2023-10-01|18:05:15|professional camera|canon|-1399.99
+2023-10-18|12:45:50|stylish smartwatch|apple|399.99
+2023-11-05|12:25:40|wireless printer|hp|179.99
+2023-11-18|10:30:10|advanced laptop|microsoft|1349.99
+2023-12-05|16:40:45|gaming PC|asus|-999.99
+2023-12-18|09:35:50|smartphone with great features|google pixel|949.99
+2023-12-30|18:20:30|premium headphones|bose|269.99
+2024-01-08|11:45:30|latest smartphone|apple|-999.00
+2024-01-15|14:20:45|performance laptop|dell|1399.99
+2024-01-25|10:55:30|high-end camera|canon|799.99
+2024-02-02|16:35:10|portable tablet|lenovo|499.99
+2024-02-12|09:45:55|feature-rich smartwatch|garmin|-329.99
+2024-02-28|13:05:25|powerful desktop PC|hp|949.99
+2024-03-05|12:50:15|high-quality headphones|sony|-199.95
+2024-03-18|16:20:35|efficient printer|epson|199.99
+2024-03-25|10:10:45|advanced camera|nikon|-1299.99
+2024-04-10|14:25:20|high-resolution monitor|lg|319.99
+2024-04-15|11:30:35|gaming laptop|asus|-899.99
+2024-04-28|09:55:50|stylish smartphone|samsung|799.99
+2024-05-05|13:35:45|premium quality headphones|bose|249.99
+2024-05-20|15:20:15|versatile tablet|apple|629.99
+2024-06-01|16:45:30|fitness smartwatch|fitbit|-159.99
+2024-06-12|12:10:55|reliable laptop|acer|899.99
+2024-06-25|11:40:25|high-performance PC|dell|-949.99
+2024-07-03|09:15:10|professional camera|sony|1100.00
+2024-07-18|08:25:35|compact printer|canon|229.99
+2024-07-29|17:35:50|smartphone with amazing features|huawei|-739.99
+2024-08-05|11:30:20|latest laptop model|microsoft|1399.99
+2024-08-15|14:55:45|gaming monitor|samsung|369.99
+2024-08-28|10:35:15|advanced camera|nikon|-1399.99
+2024-09-02|13:25:15|top-notch tablet|samsung|649.99
+2024-09-04|09:45:30|professional camera|nikon|-1399.99
+2024-09-06|15:50:10|latest smartphone|oneplus|749.99
+2024-09-08|12:20:50|high-performance PC|dell|1299.99
+2024-09-10|08:15:25|high-quality monitor|lg|259.99
+2024-09-12|14:55:35|gaming laptop|acer|-749.99
+2024-09-15|17:40:45|stylish smartwatch|apple|399.99
+2024-09-18|11:05:25|efficient printer|epson|189.99
+2024-09-20|09:35:10|noise-canceling headphones|bose|-199.99
+2024-09-22|13:10:45|mechanical keyboard|logitech|89.99
+2024-09-25|10:55:30|luxury camera|sony|1250.00
+2024-09-28|16:40:15|premium smartphone|google pixel|-999.99
+2024-10-03|14:20:15|gaming monitor|samsung|360.00
+2024-10-10|10:40:30|premium smartwatch|garmin|329.99
+2024-10-12|13:25:45|affordable laptop|hp|-799.99
+2024-10-15|11:55:00|gaming keyboard|razer|99.99
+2024-10-16|14:15:10|DSLR camera|canon|-1299.99
+2024-10-18|09:35:50|ergonomic mouse|logitech|45.99

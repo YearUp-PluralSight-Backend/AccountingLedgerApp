@@ -46,16 +46,16 @@ public class Report {
         String options =
                 """
                         =========================================================================
-                        =====          (%s) Welcome To Report Screen                        =====
+                        =====          Welcome To Report Screen                             =====
                         =====          Option: (1)    Month To Date                         =====
                         =====          Option  (2)    Previous Month                        =====
                         =====          Option  (3)    Year To Date                          =====
                         =====          Option  (4)    Previous Year                         =====
                         =====          Option  (5)    Search By Vendor Name                 =====
-                        =====          Option  (5)    Custom Search By Properties           =====
+                        =====          Option  (6)    Custom Search By Properties           =====
                         =====          Option  (0)    Back to Ledger Screen                 =====
                         =========================================================================
-                        """.formatted("\\u263A");
+                        """;
         System.out.println(options);
     }
 
@@ -103,6 +103,8 @@ public class Report {
         // https://stackoverflow.com/questions/9382897/how-to-get-start-and-end-date-of-a-year
 
         LocalDate today = LocalDate.now();
+
+        System.out.println("Now:" + today);
         transactionList.parallelStream().filter(t -> {
             LocalDate firstDayOfTheMonth = today.with(firstDayOfMonth()); // Get the first day of the current month
             if (t.getCreatedDateTime().toLocalDate().isAfter(firstDayOfTheMonth) && t.getCreatedDateTime().toLocalDate().isBefore(t.getCreatedDateTime().toLocalDate()))
@@ -116,15 +118,25 @@ public class Report {
     private void generatePreviousMonthReport() {
 
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime beforeMonth = now.minusMonths(1);
+        LocalDateTime firstDayOfMonth = now.minusMonths(1).with(firstDayOfMonth());
+        LocalDateTime lastDayOfMonth = now.minusMonths(1).with(lastDayOfMonth());
 
-        List<Transaction> sortedTransactions = transactionList.stream()
-                .filter(t -> t.getCreatedDateTime().isAfter(beforeMonth) && t.getCreatedDateTime().isBefore(now))
+
+        System.out.println("now: " + now);
+        System.out.println("firstDayOfMonth: " + firstDayOfMonth);
+        System.out.println("lastDayOfMonth: " + lastDayOfMonth);
+
+
+        List<Transaction> sortedTransactions = transactionList.parallelStream()
+                .filter(t -> t.getCreatedDateTime().isAfter(firstDayOfMonth) && (t.getCreatedDateTime().isBefore(lastDayOfMonth) || t.getCreatedDateTime().isEqual(lastDayOfMonth)))
                 .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
                 .collect(Collectors.toList());
 
-        sortedTransactions.stream().forEach(System.out::println);
-
+        if (sortedTransactions.isEmpty()) {
+            System.out.println("No transactions found in the previous month.");
+        } else {
+            sortedTransactions.stream().forEach(System.out::println);
+        }
     }
 
     private void generateYearToDateReport() {
@@ -133,29 +145,52 @@ public class Report {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startYear = now.with(firstDayOfYear());
 
-        List<Transaction> sortedTransactions = transactionList.stream()
-                .filter(t -> t.getCreatedDateTime().isAfter(startYear) && t.getCreatedDateTime().isBefore(now))
+        System.out.println("Now: " + now);
+        System.out.println("startYear: " + startYear);
+
+        List<Transaction> sortedTransactions = transactionList.parallelStream()
+                .filter(t -> t.getCreatedDateTime().isAfter(startYear) && t.getCreatedDateTime().isBefore(now) || t.getCreatedDateTime().isEqual(now))
                 .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
                 .collect(Collectors.toList());
+
+        if (sortedTransactions.isEmpty()) {
+            System.out.println("No transactions found in the previous month.");
+        } else {
+            sortedTransactions.stream().forEach(System.out::println);
+        }
 
     }
 
     private void generatePreviousYearReport() {
 
         // https://stackoverflow.com/questions/9382897/how-to-get-start-and-end-date-of-a-year
+
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime lastyearOfFirstDay = now.minusYears(1).with(firstDayOfYear());
         LocalDateTime lastyearOfLastDay = now.minusYears(1).with(lastDayOfYear());
+
+        System.out.println("lastyearOfFirstDay: " + lastyearOfFirstDay);
+        System.out.println("lastyearOfLastDay: " + lastyearOfLastDay);
+
+        List<Transaction> sortedTransactions = transactionList.parallelStream()
+                .filter(t -> t.getCreatedDateTime().isAfter(lastyearOfFirstDay) && t.getCreatedDateTime().isBefore(lastyearOfLastDay) || t.getCreatedDateTime().isEqual(lastyearOfFirstDay))
+                .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
+                .collect(Collectors.toList());
+
+        if (sortedTransactions.isEmpty()) {
+            System.out.println("No transactions found in the previous month.");
+        } else {
+            sortedTransactions.stream().forEach(System.out::println);
+        }
 
 
     }
 
     private void searchByVendorName(String vendorName) {
-        transactionList.stream().filter(t -> t.getVendor().equalsIgnoreCase(vendorName)).forEach(System.out::println);
+        transactionList.parallelStream().filter(t -> t.getVendor().equalsIgnoreCase(vendorName)).forEach(System.out::println);
     }
 
-    private void customSearch(LocalDate startDate, LocalDate endDate, String description, String vendorName, double amount) {
-
+    private void customSearch(LocalDate startDate, LocalDate endDate, String description, String vendorName, double amount) throws InterruptedException {
         for (Transaction transaction : transactionList) {
             if (transaction.getCreatedDateTime().toLocalDate().isAfter(startDate) && transaction.getCreatedDateTime().toLocalDate().isBefore(endDate) &&
                     isEqualWithString(transaction.getVendor(), vendorName) && isEqualWithString(transaction.getDescription(), description) &&
@@ -163,6 +198,8 @@ public class Report {
                 System.out.println(transaction);
             }
         }
+
+        Thread.sleep(2000);
     }
 
     private boolean isEqualWithString(String s1, String s2) {
