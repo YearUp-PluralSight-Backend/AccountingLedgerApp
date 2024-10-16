@@ -8,19 +8,19 @@ import org.slf4j.LoggerFactory;
  * The AccountingLedgerAPP class is the main class for the Accounting Ledger Application.
  * It handles the initialization and main menu navigation of the application.
  */
-public class AccountingLedgerAPP {
+public class AccountingLedgerApplication {
 
     // Logger instance for logging information
-    private static final Logger logger = LoggerFactory.getLogger(AccountingLedgerAPP.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountingLedgerApplication.class);
     // Singleton instance of the Ledger class
     private static final Ledger ledger = Ledger.getInstance();
     // Singleton instance of the AccountingLedgerAPP class
-    private static AccountingLedgerAPP accountingLedgerApp;
+    private static AccountingLedgerApplication accountingLedgerApp;
 
     /**
      * Private constructor to prevent instantiation.
      */
-    private AccountingLedgerAPP() {
+    private AccountingLedgerApplication() {
     }
 
     /**
@@ -29,9 +29,9 @@ public class AccountingLedgerAPP {
      *
      * @return The singleton instance of AccountingLedgerAPP
      */
-    public static AccountingLedgerAPP getInstance() {
+    public static AccountingLedgerApplication getInstance() {
         if (accountingLedgerApp == null) {
-            accountingLedgerApp = new AccountingLedgerAPP();
+            accountingLedgerApp = new AccountingLedgerApplication();
         }
         return accountingLedgerApp;
     }
