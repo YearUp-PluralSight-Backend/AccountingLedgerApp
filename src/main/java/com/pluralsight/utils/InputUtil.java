@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -130,7 +131,7 @@ public class InputUtil {
 
     public static Transaction userInput() {
         try {
-            String dateTime = promptForString("Enter the Date time (yyyy-MM-dd HH:mm:ss): ");
+            String dateTime = promptForString("Enter the Date time (yyyy-MM-dd HH:mm:ss) Or default Today's Now: ");
             logger.info("User entered dateTime: {}", dateTime);
 
             String vendorName = promptForString("Enter the Vendor Name: ");
@@ -142,7 +143,14 @@ public class InputUtil {
             Double amount = promptForDouble("Enter the Amount: ");
             logger.info("User entered amount: {}", amount);
 
-            LocalDateTime createdDateTime = LocalDateTime.parse(dateTime, InputUtil.dateTimeFormatter);
+            LocalDateTime createdDateTime;
+
+            if (dateTime.isBlank() || dateTime.isEmpty()) {
+                createdDateTime = LocalDateTime.now();
+
+            }
+
+            createdDateTime = LocalDateTime.parse(dateTime, InputUtil.dateTimeFormatter);
             Transaction transaction = new Transaction(createdDateTime, description, vendorName, amount);
             logger.info("Created transaction: {}", transaction);
 
@@ -156,10 +164,31 @@ public class InputUtil {
         return null;
     }
 
-    public static void printOutWithFormat(Double d) {
+    public static void displayDataWithFormat(List<Transaction> transactionList) {
+        String header = """
+                | %-20s | %-40s | %-20s | $%-20s |
+                ------------------------------------------------------------------------------------------------------------------
+                """.formatted("Date Time", "Description", "Vendor Name", "Amount");
+        System.out.println(header);
 
+        transactionList.stream().forEach(System.out::println);
 
+        String footer = """
+                ------------------------------------------------------------------------------------------------------------------
+                ------------------------        You have successfully displayed all of the data!          ------------------------
+                ------------------------------------------------------------------------------------------------------------------
+                """;
 
+        System.out.println(footer);
+    }
 
+    public static void formatOuput(double d) {
+
+        String value = """
+                ------------------------------------------------------------------------------------------------------------------
+                ------------------------        Your Balance is %.2f                                      ------------------------
+                ------------------------------------------------------------------------------------------------------------------
+                """.formatted(d);
+        System.out.println(value);
     }
 }

@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import com.pluralsight.model.Transaction;
 import com.pluralsight.Repository.*;
+import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -192,6 +193,7 @@ public class Ledger implements LedgerOperations {
                 =====          Option: (All)  Display All Entries                   =====
                 =====          Option  (D)    Display Only Deposit Entries          =====
                 =====          Option  (P)    Display Only Payment Entries          =====
+                =====          Option  (B)    Show the Balance                      =====
                 =====          Option  (R)    Report Screen                         =====
                 =====          Option  (H)    Home   Screen                         =====
                 =========================================================================
@@ -205,6 +207,7 @@ public class Ledger implements LedgerOperations {
      */
     @Override
     public void ledgerScreen() {
+
         while (true) {
             try {
                 ledgerScreenMenu();
@@ -215,7 +218,7 @@ public class Ledger implements LedgerOperations {
                     case "P" -> ledger.displayPaymentEntries();                                                     // Display payment entries
                     case "B" -> {
                         double balance = ledger.showBalance();
-                        System.out.println();
+                        InputUtil.formatOuput(balance);
                     }
                     case "R" -> {
                         report.setUpData(transactionList, transactionListWithDeposit, transactionListWithPayment);  // Setup the data for report screen
@@ -226,7 +229,7 @@ public class Ledger implements LedgerOperations {
                 }
             } catch (Exception e) {
                 logger.info("Wrong command or Option!");
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
@@ -252,6 +255,7 @@ public class Ledger implements LedgerOperations {
             Thread.sleep(1000);
             return;
         }
+
         transaction.setAmount(transaction.getAmount() * -1);
         transactionList.add(transaction);
         transactionListWithDeposit.add(transaction);
@@ -284,7 +288,7 @@ public class Ledger implements LedgerOperations {
      */
     @Override
     public void displayPaymentEntries() throws InterruptedException {
-        transactionListWithPayment.stream().forEach(System.out::println);
+        InputUtil.displayDataWithFormat(transactionListWithPayment);
         Thread.sleep(2000);
     }
 
@@ -295,7 +299,7 @@ public class Ledger implements LedgerOperations {
      */
     @Override
     public void displayDepositEntries() throws InterruptedException {
-        transactionListWithDeposit.stream().forEach(System.out::println);
+        InputUtil.displayDataWithFormat(transactionListWithDeposit);
         Thread.sleep(2000);
     }
 
@@ -306,7 +310,7 @@ public class Ledger implements LedgerOperations {
      */
     @Override
     public void displayAllEntries() throws InterruptedException {
-        transactionList.stream().forEach(System.out::println);
+        InputUtil.displayDataWithFormat(transactionList);
         Thread.sleep(2000);
     }
 

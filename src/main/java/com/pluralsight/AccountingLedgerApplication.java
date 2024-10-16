@@ -41,6 +41,7 @@ public class AccountingLedgerApplication {
      * The loop continues until the user chooses to exit.
      */
     public void storeHomeScreen() {
+
         boolean flag = true;
         while (flag) {
             try {

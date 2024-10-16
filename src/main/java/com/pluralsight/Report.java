@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAmount;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +62,7 @@ public class Report implements ReportOperations {
     }
 
     public void reportScreen() {
-        System.out.println(report);
+
         while (true) {
             try {
                 reportScreenMenu();
@@ -102,15 +103,16 @@ public class Report implements ReportOperations {
 
         // https://stackoverflow.com/questions/9382897/how-to-get-start-and-end-date-of-a-year
 
-        LocalDate today = LocalDate.now();
-        LocalDate firstDayOfTheMonth = today.with(firstDayOfMonth()); // Get the first day of the current month
+        LocalDate today = LocalDate.now().plusDays(1);
+        LocalDate firstDayOfTheMonth = today.with(firstDayOfMonth()).minusDays(1); // Get the first day of the current month
         System.out.println("Now:" + today);
         System.out.println("firstDayOfTheMonth: " + firstDayOfTheMonth);
         transactionList.parallelStream().filter(t -> {
             if (t.getCreatedDateTime().toLocalDate().isAfter(firstDayOfTheMonth) && t.getCreatedDateTime().toLocalDate().isBefore(today) || t.getCreatedDateTime().toLocalDate().isEqual(firstDayOfTheMonth))
                 return true;
             return false;
-        }).forEach(System.out::println);
+        }).sorted(Comparator.comparing(Transaction::getCreatedDateTime))
+                .forEachOrdered(System.out::println);
 
 
     }
