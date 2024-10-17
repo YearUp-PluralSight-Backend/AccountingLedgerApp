@@ -146,7 +146,7 @@ public class Report implements ReportOperations {
                     if (t.getCreatedDateTime().toLocalDate().isAfter(firstDayOfTheMonth) && t.getCreatedDateTime().toLocalDate().isBefore(today) || t.getCreatedDateTime().toLocalDate().isEqual(firstDayOfTheMonth))
                         return true;
                     return false;
-                }).sorted(Comparator.comparing(Transaction::getCreatedDateTime))
+                }).sorted(Comparator.comparing(Transaction::getCreatedDateTime).reversed())
                 .forEachOrdered(System.out::println);
         InputUtil.footer();
     }
@@ -164,7 +164,7 @@ public class Report implements ReportOperations {
         InputUtil.header();
         List<Transaction> sortedTransactions = transactionList.parallelStream()
                 .filter(t -> t.getCreatedDateTime().isAfter(firstDayOfMonth) && (t.getCreatedDateTime().isBefore(lastDayOfMonth) || t.getCreatedDateTime().isEqual(lastDayOfMonth)))
-                .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
+                .sorted(Comparator.comparing(Transaction::getCreatedDateTime).reversed())
                 .collect(Collectors.toList());
         if (sortedTransactions.isEmpty()) {
             System.out.println("No transactions found in the previous month.");
@@ -186,7 +186,7 @@ public class Report implements ReportOperations {
         InputUtil.header();
         List<Transaction> sortedTransactions = transactionList.parallelStream()
                 .filter(t -> t.getCreatedDateTime().isAfter(startYear) && t.getCreatedDateTime().isBefore(now) || t.getCreatedDateTime().isEqual(now))
-                .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
+                .sorted(Comparator.comparing(Transaction::getCreatedDateTime).reversed())
                 .collect(Collectors.toList());
         if (sortedTransactions.isEmpty()) {
             System.out.println("No transactions found in the previous month.");
@@ -210,7 +210,7 @@ public class Report implements ReportOperations {
         InputUtil.header();
         List<Transaction> sortedTransactions = transactionList.parallelStream()
                 .filter(t -> t.getCreatedDateTime().isAfter(lastyearOfFirstDay) && t.getCreatedDateTime().isBefore(lastyearOfLastDay) || t.getCreatedDateTime().isEqual(lastyearOfFirstDay))
-                .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
+                .sorted(Comparator.comparing(Transaction::getCreatedDateTime).reversed())
                 .collect(Collectors.toList());
         if (sortedTransactions.isEmpty()) {
             System.out.println("No transactions found in the previous month.");

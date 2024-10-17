@@ -107,7 +107,6 @@ public class Transaction {
      */
     @Override
     public String toString() {
-
         return  String.format("| %-20s | %-40s | %-20s | $%-20.2f |",createdDateTime.format(InputUtil.dateTimeFormatter), description, vendor, amount);
 
     }

@@ -6,10 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class InputUtil {
 
@@ -133,25 +131,22 @@ public class InputUtil {
     public static Transaction userInput() {
         try {
             String dateTime = promptForString("Enter the Date time (yyyy-MM-dd HH:mm:ss) Or default Today's Now: ");
-            logger.info("User entered dateTime: {}", dateTime);
-
-            String vendorName = promptForString("Enter the Vendor Name: ");
-            logger.info("User entered vendorName: {}", vendorName);
-
-            String description = promptForString("Enter the Description: ");
-            logger.info("User entered description: {}", description);
-
-            Double amount = promptForDouble("Enter the Amount: ");
-            logger.info("User entered amount: {}", amount);
 
             LocalDateTime createdDateTime;
 
             if (dateTime.isBlank() || dateTime.isEmpty()) {
-                createdDateTime = LocalDateTime.now();
+                createdDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+                System.out.println("You have used the default time: Now " + createdDateTime);
 
             } else {
                 createdDateTime = LocalDateTime.parse(dateTime, InputUtil.dateTimeFormatter);
             }
+
+            String vendorName = promptForString("Enter the Vendor Name: ");
+            String description = promptForString("Enter the Description: ");
+            Double amount = promptForDouble("Enter the Amount: ");
+
+            System.out.println();
             Transaction transaction = new Transaction(createdDateTime, description, vendorName, amount);
             logger.info("Created transaction: {}", transaction);
 
@@ -168,8 +163,20 @@ public class InputUtil {
     public static void displayDataWithFormat(List<Transaction> transactionList) {
         header();
         transactionList.stream()
-                .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
+                .sorted(Comparator.comparing(Transaction::getCreatedDateTime).reversed())
                 .forEach(System.out::println);
+
+//        OtherTypeTransaction is also son of the Transacion;
+//        FinancialTransaction is son of the Transaction ;
+        Comparator<Transaction> comparator = Comparator.comparing(Transaction::getCreatedDateTime).reversed();
+        Collections.sort(transactionList, comparator);
+
+//        Collections.sort(FinancialTransactionList, comparator);
+//        Collections.sort(OtherTypeTransaction, comparator);
+
+
+//        It covers generic and polymorphism
+
         footer();
     }
 
@@ -198,4 +205,5 @@ public class InputUtil {
                 """.formatted(d);
         System.out.println(value);
     }
+
 }

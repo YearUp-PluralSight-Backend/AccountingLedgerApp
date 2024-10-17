@@ -165,7 +165,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - Reference : [Interface vs Abstract Class](https://stackoverflow.com/questions/761194/interface-vs-abstract-class-general-oo)
 - Reference : [How to use the Stream API](https://www.baeldung.com/java-8-streams)
 - Reference : [How to use the Collections Framework](https://www.baeldung.com/java-collections)
-- 
+- Reference : [How to use Comparator.Comparing](https://www.baeldung.com/java-8-comparator-comparing)
 
 ## Contact
 
