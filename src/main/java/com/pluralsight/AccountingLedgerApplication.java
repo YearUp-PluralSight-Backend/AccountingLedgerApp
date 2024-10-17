@@ -42,6 +42,7 @@ public class AccountingLedgerApplication {
      */
     public void storeHomeScreen() {
 
+        logger.info("Showing Home Screen!");
         boolean flag = true;
         while (flag) {
             try {

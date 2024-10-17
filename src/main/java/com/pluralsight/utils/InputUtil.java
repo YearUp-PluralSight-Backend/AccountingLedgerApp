@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -148,9 +149,9 @@ public class InputUtil {
             if (dateTime.isBlank() || dateTime.isEmpty()) {
                 createdDateTime = LocalDateTime.now();
 
+            } else {
+                createdDateTime = LocalDateTime.parse(dateTime, InputUtil.dateTimeFormatter);
             }
-
-            createdDateTime = LocalDateTime.parse(dateTime, InputUtil.dateTimeFormatter);
             Transaction transaction = new Transaction(createdDateTime, description, vendorName, amount);
             logger.info("Created transaction: {}", transaction);
 
@@ -165,25 +166,31 @@ public class InputUtil {
     }
 
     public static void displayDataWithFormat(List<Transaction> transactionList) {
+        header();
+        transactionList.stream()
+                .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
+                .forEach(System.out::println);
+        footer();
+    }
+
+    public static void header() {
         String header = """
                 | %-20s | %-40s | %-20s | $%-20s |
                 ------------------------------------------------------------------------------------------------------------------
                 """.formatted("Date Time", "Description", "Vendor Name", "Amount");
-        System.out.println(header);
+        System.out.print(header);
+    }
 
-        transactionList.stream().forEach(System.out::println);
-
+    public static void footer() {
         String footer = """
                 ------------------------------------------------------------------------------------------------------------------
                 ------------------------        You have successfully displayed all of the data!          ------------------------
                 ------------------------------------------------------------------------------------------------------------------
                 """;
-
         System.out.println(footer);
     }
 
     public static void formatOuput(double d) {
-
         String value = """
                 ------------------------------------------------------------------------------------------------------------------
                 ------------------------        Your Balance is %.2f                                      ------------------------

@@ -41,8 +41,12 @@
     </root>
 
 
-    <logger name="com.pluralsight.service" level="DEBUG" />
-    <logger name="com.pluralsight.repository" level="INFO" />
+    <logger name="com.pluralsight.Repository" level="INFO" />
+    <logger name="com.pluralsight.model" level="INFO" />
+    <logger name="com.pluralsight.utils" level="INFO" />
+    <logger name="com.pluralsight.AccountingLedgerApplication" level="INFO" />
+    <logger name="com.pluralsight.Ledger" level="INFO" />
+    <logger name="com.pluralsight.Report" level="INFO" />
 
 
 </configuration>

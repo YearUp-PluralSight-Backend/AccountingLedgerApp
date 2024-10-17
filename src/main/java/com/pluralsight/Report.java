@@ -91,6 +91,7 @@ public class Report implements ReportOperations {
      * The loop continues until the user chooses to go back to the ledger screen.
      */
     public void reportScreen() {
+        logger.info("Showing ReportScreen Now!");
         while (true) {
             try {
                 reportScreenMenu();
@@ -110,6 +111,11 @@ public class Report implements ReportOperations {
                         String description = InputUtil.promptForString("Enter the description: ");
                         String vendorName = InputUtil.promptForString("Enter Vendor Name: ");
                         double Amount = InputUtil.promptForDouble("Enter the Amount: ");
+
+                        if (start.isBlank() || start.isEmpty() || end.isBlank() || end.isEmpty()) {
+                            System.out.println("Date Time Format issues! Please try it again!");
+                            continue;
+                        }
                         LocalDate startDate = LocalDate.parse(start, InputUtil.dateFormatter);
                         LocalDate endDate = LocalDate.parse(end, InputUtil.dateFormatter);
                         report.customSearch(startDate, endDate, description, vendorName, Amount);
@@ -117,7 +123,7 @@ public class Report implements ReportOperations {
                     case "0" -> {
                         return;
                     }
-                    default -> System.out.println("Invalid Option. Please choose between (1-9, ALL, D, P, R, H)\n");
+                    default -> System.out.println("Invalid Option. Please choose between (1----6 and (0: Exit))\n");
                 }
             } catch (Exception e) {
                 logger.error("Error processing the option: ", e);
@@ -131,16 +137,18 @@ public class Report implements ReportOperations {
      */
     @Override
     public void generateMonthToDateReport() {
+        logger.info("Generating report from this month to now!");
         LocalDate today = LocalDate.now().plusDays(1);
         LocalDate firstDayOfTheMonth = today.with(firstDayOfMonth()).minusDays(1);
-        System.out.println("Now:" + today);
-        System.out.println("firstDayOfTheMonth: " + firstDayOfTheMonth);
+
+        InputUtil.header();
         transactionList.parallelStream().filter(t -> {
                     if (t.getCreatedDateTime().toLocalDate().isAfter(firstDayOfTheMonth) && t.getCreatedDateTime().toLocalDate().isBefore(today) || t.getCreatedDateTime().toLocalDate().isEqual(firstDayOfTheMonth))
                         return true;
                     return false;
                 }).sorted(Comparator.comparing(Transaction::getCreatedDateTime))
                 .forEachOrdered(System.out::println);
+        InputUtil.footer();
     }
 
     /**
@@ -148,12 +156,12 @@ public class Report implements ReportOperations {
      */
     @Override
     public void generatePreviousMonthReport() {
+        logger.info("Generating report from previous whole month!");
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime firstDayOfMonth = now.minusMonths(1).with(firstDayOfMonth());
         LocalDateTime lastDayOfMonth = now.minusMonths(1).with(lastDayOfMonth());
-        System.out.println("now: " + now);
-        System.out.println("firstDayOfMonth: " + firstDayOfMonth);
-        System.out.println("lastDayOfMonth: " + lastDayOfMonth);
+
+        InputUtil.header();
         List<Transaction> sortedTransactions = transactionList.parallelStream()
                 .filter(t -> t.getCreatedDateTime().isAfter(firstDayOfMonth) && (t.getCreatedDateTime().isBefore(lastDayOfMonth) || t.getCreatedDateTime().isEqual(lastDayOfMonth)))
                 .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
@@ -163,6 +171,7 @@ public class Report implements ReportOperations {
         } else {
             sortedTransactions.stream().forEach(System.out::println);
         }
+        InputUtil.footer();
     }
 
     /**
@@ -170,10 +179,11 @@ public class Report implements ReportOperations {
      */
     @Override
     public void generateYearToDateReport() {
+        logger.info("Generating report from this year to now!");
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startYear = now.with(firstDayOfYear());
-        System.out.println("Now: " + now);
-        System.out.println("startYear: " + startYear);
+
+        InputUtil.header();
         List<Transaction> sortedTransactions = transactionList.parallelStream()
                 .filter(t -> t.getCreatedDateTime().isAfter(startYear) && t.getCreatedDateTime().isBefore(now) || t.getCreatedDateTime().isEqual(now))
                 .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
@@ -183,6 +193,8 @@ public class Report implements ReportOperations {
         } else {
             sortedTransactions.stream().forEach(System.out::println);
         }
+        InputUtil.footer();
+
     }
 
     /**
@@ -190,11 +202,12 @@ public class Report implements ReportOperations {
      */
     @Override
     public void generatePreviousYearReport() {
+        logger.info("Generating report from last whole year !");
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime lastyearOfFirstDay = now.minusYears(1).with(firstDayOfYear());
         LocalDateTime lastyearOfLastDay = now.minusYears(1).with(lastDayOfYear());
-        System.out.println("lastyearOfFirstDay: " + lastyearOfFirstDay);
-        System.out.println("lastyearOfLastDay: " + lastyearOfLastDay);
+
+        InputUtil.header();
         List<Transaction> sortedTransactions = transactionList.parallelStream()
                 .filter(t -> t.getCreatedDateTime().isAfter(lastyearOfFirstDay) && t.getCreatedDateTime().isBefore(lastyearOfLastDay) || t.getCreatedDateTime().isEqual(lastyearOfFirstDay))
                 .sorted(Comparator.comparing(Transaction::getCreatedDateTime))
@@ -204,6 +217,8 @@ public class Report implements ReportOperations {
         } else {
             sortedTransactions.stream().forEach(System.out::println);
         }
+        InputUtil.footer();
+
     }
 
     /**
@@ -213,7 +228,11 @@ public class Report implements ReportOperations {
      */
     @Override
     public void searchByVendorName(String vendorName) {
+        logger.info("Performing search transaction function by look up vendor name!");
+        InputUtil.header();
         transactionList.parallelStream().filter(t -> t.getVendor().equalsIgnoreCase(vendorName)).forEach(System.out::println);
+        InputUtil.footer();
+
     }
 
     /**
@@ -228,13 +247,18 @@ public class Report implements ReportOperations {
      */
     @Override
     public void customSearch(LocalDate startDate, LocalDate endDate, String description, String vendorName, double amount) throws InterruptedException {
+        logger.info("Performing custom search function!");
+        InputUtil.header();
         for (Transaction transaction : transactionList) {
             if (transaction.getCreatedDateTime().toLocalDate().isAfter(startDate) && transaction.getCreatedDateTime().toLocalDate().isBefore(endDate) &&
                     isEqualWithString(transaction.getVendor(), vendorName) && isEqualWithString(transaction.getDescription(), description) &&
                     isEqualWithDouble(transaction.getAmount(), amount)) {
                 System.out.println(transaction);
+            } else {
+                System.out.println(transaction);
             }
         }
+        InputUtil.footer();
         Thread.sleep(2000);
     }
 

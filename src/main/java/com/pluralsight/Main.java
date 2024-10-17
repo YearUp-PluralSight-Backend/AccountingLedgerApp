@@ -1,6 +1,8 @@
 package com.pluralsight;
 
 
+import java.util.ArrayList;
+
 /**
  * The Main class serves as the entry point for the application.
  */

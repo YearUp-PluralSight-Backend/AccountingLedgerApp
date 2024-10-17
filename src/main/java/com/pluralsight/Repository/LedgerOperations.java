@@ -1,6 +1,5 @@
 package com.pluralsight.Repository;
 
-import com.pluralsight.Report;
 import com.pluralsight.model.Transaction;
 import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
@@ -10,6 +9,10 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Interface for {@code Legder} class to implement the functions, such as makeDeposit, makePayment, DisplayEntries and more.
+ */
 
 public interface LedgerOperations {
 

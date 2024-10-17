@@ -225,7 +225,7 @@ public class Ledger implements LedgerOperations {
                         report.reportScreen();                                                                      // Display report screen
                     }
                     case "H" -> { return; }                                                                         // Go back to the home screen
-                    default -> System.out.println("Invalid Option. Please choose between (ALL, D, P, R, H)\n");
+                    default -> System.out.println("Invalid Option. Please choose between (ALL, D, P, B, R, H)\n");
                 }
             } catch (Exception e) {
                 logger.info("Wrong command or Option!");
@@ -259,6 +259,7 @@ public class Ledger implements LedgerOperations {
         transaction.setAmount(transaction.getAmount() * -1);
         transactionList.add(transaction);
         transactionListWithDeposit.add(transaction);
+        System.out.println("You have deposited $" + transaction.getAmount() + ".");
         LedgerOperations.updateCSVFile(transactionList);
         Thread.sleep(1000);
     }
