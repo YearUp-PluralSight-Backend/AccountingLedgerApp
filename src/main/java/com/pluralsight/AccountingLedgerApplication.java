@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import com.pluralsight.Repository.LedgerOperations;
 import com.pluralsight.utils.InputUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,7 @@ public class AccountingLedgerApplication {
     // Logger instance for logging information
     private static final Logger logger = LoggerFactory.getLogger(AccountingLedgerApplication.class);
     // Singleton instance of the Ledger class
-    private static final Ledger ledger = Ledger.getInstance();
+    private static final LedgerOperations ledger = Ledger.getInstance();
     // Singleton instance of the AccountingLedgerAPP class
     private static AccountingLedgerApplication accountingLedgerApp;
 

@@ -79,7 +79,12 @@ public class InputUtil {
         System.out.println(prompt);
         double value = 0;
         try {
-            value = Double.parseDouble(scanner.nextLine().trim());
+            String stringValue = scanner.nextLine().trim();
+            if (stringValue.isBlank() && stringValue.isEmpty()) {
+                value = 0;
+            } else {
+                value = Double.parseDouble(stringValue);
+            }
             logger.info("User input double: {}", value);
         } catch (Exception e) {
             logger.error("Error while reading double input: ", e);
@@ -88,6 +93,24 @@ public class InputUtil {
         }
         return value;
     }
+    public static Double promptForDouble(String prompt, double defaultValue) {
+        System.out.println(prompt);
+        double value = 0;
+        try {
+            String stringValue = scanner.nextLine().trim();
+            if (stringValue.isBlank() && stringValue.isEmpty()) {
+                value = defaultValue;
+            }
+//            value = stringValue;
+            logger.info("User input double: {}", value);
+        } catch (Exception e) {
+            logger.error("Error while reading double input: ", e);
+            System.out.println("Number Format issue! Please enter the right format!");
+            e.printStackTrace();
+        }
+        return value;
+    }
+
 
     public static Double promptForDouble() {
         double value = 0;
@@ -200,7 +223,7 @@ public class InputUtil {
     public static void formatOuput(double d) {
         String value = """
                 ------------------------------------------------------------------------------------------------------------------
-                ------------------------        Your Balance is %.2f                                      ------------------------
+                ------------------------        Your Balance is %.2f                                ------------------------
                 ------------------------------------------------------------------------------------------------------------------
                 """.formatted(d);
         System.out.println(value);

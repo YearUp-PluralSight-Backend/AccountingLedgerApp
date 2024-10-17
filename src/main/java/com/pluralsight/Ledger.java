@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,26 +16,16 @@ import static com.pluralsight.utils.InputUtil.*;
  * The Ledger class represents the accounting ledger which maintains a list of transactions,
  * balance, and provides methods to manipulate and display these transactions.
  */
-public class Ledger implements LedgerOperations {
+public class Ledger extends LedgerOperations {
 
-    // Logger instance for logging information
-    private static final Logger logger = LoggerFactory.getLogger(Ledger.class);
-    // Singleton instance of the Report class
-    private static final Report report = Report.getInstance();
-    // Singleton instance of the Ledger class
-    private static Ledger ledger;
     // Unique identifier for the ledger
     private UUID id;
-    // Current balance of the ledger
-    private double balance;
-    // List of all transactions
-    private List<Transaction> transactionList = LedgerOperations.getInventory();
-    // List of deposit transactions
-    private List<Transaction> transactionListWithDeposit = new ArrayList<>();
-    // List of payment transactions
-    private List<Transaction> transactionListWithPayment = new ArrayList<>();
-    // Date and time when the ledger was created
-    private LocalDateTime createdDateTime;
+    // Singleton instance of the Ledger class
+    private static Ledger ledger;
+    // Singleton instance of the Report class
+    private static final Report report = Report.getInstance();
+    // Logger instance for logging information
+    private static final Logger logger = LoggerFactory.getLogger(Ledger.class);
 
     /**
      * Default constructor to initialize the Ledger object and populate initial data.
@@ -235,6 +224,11 @@ public class Ledger implements LedgerOperations {
     }
 
     // Additional Method
+    /**
+     * Calculates and returns the current balance by subtracting the sum of payment transactions from the sum of deposit transactions.
+     *
+     * @return The current balance
+     */
     private double showBalance() {
 
         double depositSum = transactionListWithDeposit.stream().mapToDouble(Transaction::getAmount).sum();

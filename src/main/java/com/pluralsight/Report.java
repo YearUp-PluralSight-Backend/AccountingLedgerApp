@@ -111,13 +111,15 @@ public class Report implements ReportOperations {
                         String description = InputUtil.promptForString("Enter the description: ");
                         String vendorName = InputUtil.promptForString("Enter Vendor Name: ");
                         double Amount = InputUtil.promptForDouble("Enter the Amount: ");
-
-                        if (start.isBlank() || start.isEmpty() || end.isBlank() || end.isEmpty()) {
-                            System.out.println("Date Time Format issues! Please try it again!");
-                            continue;
+                        LocalDate startDate;
+                        LocalDate endDate;
+                        if (!start.isBlank() && !start.isEmpty() && !end.isBlank() && !end.isEmpty()) {
+                            startDate = LocalDate.parse(start, InputUtil.dateFormatter);
+                            endDate = LocalDate.parse(end, InputUtil.dateFormatter);
                         }
-                        LocalDate startDate = LocalDate.parse(start, InputUtil.dateFormatter);
-                        LocalDate endDate = LocalDate.parse(end, InputUtil.dateFormatter);
+                        System.out.println("Date Time Format issues!");
+                        startDate = LocalDate.now().minusYears(20);
+                        endDate = LocalDate.now();
                         report.customSearch(startDate, endDate, description, vendorName, Amount);
                     }
                     case "0" -> {
@@ -250,8 +252,8 @@ public class Report implements ReportOperations {
         logger.info("Performing custom search function!");
         InputUtil.header();
         for (Transaction transaction : transactionList) {
-            if (transaction.getCreatedDateTime().toLocalDate().isAfter(startDate) && transaction.getCreatedDateTime().toLocalDate().isBefore(endDate) &&
-                    isEqualWithString(transaction.getVendor(), vendorName) && isEqualWithString(transaction.getDescription(), description) &&
+            if (transaction.getCreatedDateTime().toLocalDate().isAfter(startDate) || transaction.getCreatedDateTime().toLocalDate().isBefore(endDate) ||
+                    isEqualWithString(transaction.getVendor(), vendorName) || isEqualWithString(transaction.getDescription(), description) ||
                     isEqualWithDouble(transaction.getAmount(), amount)) {
                 System.out.println(transaction);
             } else {
@@ -283,4 +285,5 @@ public class Report implements ReportOperations {
     private boolean isEqualWithDouble(double d1, double d2) {
         return d1 == d2;
     }
+
 }
