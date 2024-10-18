@@ -48,9 +48,18 @@ The project is organized into several key classes:
 
 
 ## ScreenShots
+
+***Example of Home Screen***
 -<img width="579" alt="Screenshot 2024-10-18 at 08 43 34" src="https://github.com/user-attachments/assets/1c65c196-3425-4b99-9c25-45e8a98f0949">
+
+***Example of Ledger Screen***
 -<img width="583" alt="Screenshot 2024-10-18 at 08 44 01" src="https://github.com/user-attachments/assets/73009dd7-7b56-4a9e-9bab-ccecbb5ed0e8">
+
+***Example of Report Screen***
 -<img width="586" alt="Screenshot 2024-10-18 at 08 44 16" src="https://github.com/user-attachments/assets/d4a13d73-c761-411d-8cb9-28070596d532">
+
+***Example of Data***
+-<img width="558" alt="Screenshot 2024-10-18 at 08 48 36" src="https://github.com/user-attachments/assets/91fa6e78-83a3-40f9-b12b-5fa5d30a7c9a">
 
 ### Prerequisites
 
