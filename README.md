@@ -122,4 +122,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 Your Yiming - Yiming.Gao0907@gmail.com
 
-Project Link: [Accounting-Ledger-Application](https://github.com/yourusername/accounting-ledger-app)
+Project Link: [Accounting-Ledger-Application](https://github.com/YearUp-PluralSight-Backend/AccountingLedgerApp) 
