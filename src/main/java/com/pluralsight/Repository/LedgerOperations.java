@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -146,6 +147,7 @@ public abstract class LedgerOperations {
                     .append("Amount")
                     .toString()
             );
+            Collections.reverse(transactionList);
             for (Transaction transaction : transactionList) {
                 if (transaction == null) continue;
                 // Write the contents

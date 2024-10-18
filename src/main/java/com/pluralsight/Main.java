@@ -1,7 +1,7 @@
 package com.pluralsight;
 
 
-import java.util.ArrayList;
+import com.pluralsight.service.AccountingLedgerApplication;
 
 /**
  * The Main class serves as the entry point for the application.
@@ -18,3 +18,8 @@ public class Main {
         AccountingLedgerApplication.getInstance("inventory.csv").storeHomeScreen();
     }
 }
+
+/**
+ *
+ *                          Good morning everyone
+ */

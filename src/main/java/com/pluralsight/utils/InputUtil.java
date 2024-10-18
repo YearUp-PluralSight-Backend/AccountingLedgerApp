@@ -208,7 +208,6 @@ public class InputUtil {
     public static Transaction userInput() {
         try {
             String dateTime = promptForString("Enter the Date time (yyyy-MM-dd HH:mm:ss) Or default Today's Now: ");
-
             LocalDateTime createdDateTime;
 
             if (dateTime.isBlank() || dateTime.isEmpty()) {
@@ -217,11 +216,23 @@ public class InputUtil {
 
             } else {
                 createdDateTime = LocalDateTime.parse(dateTime, InputUtil.dateTimeFormatter);
+                System.out.println("Thank you, I got your date time: " + createdDateTime);
             }
 
             String vendorName = promptForString("Enter the Vendor Name: ");
+            if (vendorName.isEmpty() || vendorName.isBlank()) {
+                System.out.println("You did not enter vendor name.");
+            } else {
+                System.out.println("Thank you, I got your vendor name: " + vendorName);
+            }
             String description = promptForString("Enter the Description: ");
-            Double amount = promptForDouble("Enter the Amount: ");
+            if (description.isBlank() || description.isEmpty()) {
+                System.out.println("You did not enter description.");
+            } else {
+                System.out.println("Wow, pretty good description: " + description);
+            }
+
+            Double amount = promptForDouble("Enter the Amount:  (or empty will be default 0)");
 
             System.out.println();
             Transaction transaction = new Transaction(createdDateTime, description, vendorName, amount);

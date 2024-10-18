@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.service;
 
 import com.pluralsight.Repository.ReportOperations;
 import com.pluralsight.model.Transaction;
@@ -138,7 +138,7 @@ public class Report implements ReportOperations {
      * Generates a month-to-date report by filtering transactions from the first day of the current month to today.
      */
     @Override
-    public void generateMonthToDateReport() {
+    public void generateMonthToDateReport() throws InterruptedException {
         logger.info("Generating report from this month to now!");
         LocalDate today = LocalDate.now().plusDays(1);
         LocalDate firstDayOfTheMonth = today.with(firstDayOfMonth()).minusDays(1);
@@ -151,13 +151,15 @@ public class Report implements ReportOperations {
                 }).sorted(Comparator.comparing(Transaction::getCreatedDateTime).reversed())
                 .forEachOrdered(System.out::println);
         InputUtil.footer();
+
+        Thread.sleep(2000);
     }
 
     /**
      * Generates a report for the previous month by filtering transactions from the first to the last day of the previous month.
      */
     @Override
-    public void generatePreviousMonthReport() {
+    public void generatePreviousMonthReport() throws InterruptedException {
         logger.info("Generating report from previous whole month!");
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime firstDayOfMonth = now.minusMonths(1).with(firstDayOfMonth());
@@ -174,13 +176,15 @@ public class Report implements ReportOperations {
             sortedTransactions.stream().forEach(System.out::println);
         }
         InputUtil.footer();
+        Thread.sleep(2000);
+
     }
 
     /**
      * Generates a year-to-date report by filtering transactions from the first day of the current year to today.
      */
     @Override
-    public void generateYearToDateReport() {
+    public void generateYearToDateReport() throws InterruptedException {
         logger.info("Generating report from this year to now!");
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startYear = now.with(firstDayOfYear());
@@ -196,6 +200,7 @@ public class Report implements ReportOperations {
             sortedTransactions.stream().forEach(System.out::println);
         }
         InputUtil.footer();
+        Thread.sleep(2000);
 
     }
 
@@ -203,7 +208,7 @@ public class Report implements ReportOperations {
      * Generates a report for the previous year by filtering transactions from the first to the last day of the previous year.
      */
     @Override
-    public void generatePreviousYearReport() {
+    public void generatePreviousYearReport() throws InterruptedException {
         logger.info("Generating report from last whole year !");
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime lastyearOfFirstDay = now.minusYears(1).with(firstDayOfYear());
@@ -220,6 +225,7 @@ public class Report implements ReportOperations {
             sortedTransactions.stream().forEach(System.out::println);
         }
         InputUtil.footer();
+        Thread.sleep(2000);
 
     }
 
@@ -229,11 +235,12 @@ public class Report implements ReportOperations {
      * @param vendorName The name of the vendor to search for
      */
     @Override
-    public void searchByVendorName(String vendorName) {
+    public void searchByVendorName(String vendorName) throws InterruptedException {
         logger.info("Performing search transaction function by look up vendor name!");
         InputUtil.header();
         transactionList.parallelStream().filter(t -> t.getVendor().equalsIgnoreCase(vendorName)).forEach(System.out::println);
         InputUtil.footer();
+        Thread.sleep(2000);
 
     }
 

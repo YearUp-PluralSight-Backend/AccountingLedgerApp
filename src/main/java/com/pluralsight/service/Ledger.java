@@ -1,4 +1,4 @@
-package com.pluralsight;
+package com.pluralsight.service;
 
 import com.pluralsight.model.Transaction;
 import com.pluralsight.Repository.*;
@@ -246,17 +246,18 @@ public class Ledger extends LedgerOperations {
     public void addDeposit() throws InterruptedException {
         logger.info("Adding deposit!");
         Transaction transaction = userInput();
-        if (transaction == null) {
+        if (transaction.getVendor().isEmpty() || transaction.getDescription().isEmpty()) {
+            System.out.println("Vendor Name or Description is empty.");
             Thread.sleep(1000);
-            return;
+        } else {
+            transaction.setAmount(transaction.getAmount());
+            transactionList.add(transaction);
+            transactionListWithDeposit.add(transaction);
+            System.out.println("You have deposited $" + transaction.getAmount() + ".");
+            LedgerOperations.updateCSVFile(transactionList);
+            logger.info("Created deposit transaction: {}", transaction);
+            Thread.sleep(1000);
         }
-
-        transaction.setAmount(transaction.getAmount() * -1);
-        transactionList.add(transaction);
-        transactionListWithDeposit.add(transaction);
-        System.out.println("You have deposited $" + transaction.getAmount() + ".");
-        LedgerOperations.updateCSVFile(transactionList);
-        Thread.sleep(1000);
     }
 
     /**
@@ -269,14 +270,18 @@ public class Ledger extends LedgerOperations {
         logger.info("Making Payment!");
 
         Transaction transaction = userInput();
-        if (transaction == null) {
+        if (transaction.getVendor().isEmpty() || transaction.getDescription().isEmpty()) {
+            System.out.println("Vendor Name or Description is empty.");
             Thread.sleep(1000);
-            return;
+        } else {
+            transaction.setAmount(transaction.getAmount() * -1);
+            transactionList.add(transaction);
+            transactionListWithPayment.add(transaction);
+            System.out.println("You have paid $" + transaction.getAmount() + ".");
+            LedgerOperations.updateCSVFile(transactionList);
+            logger.info("Created payment transaction: {}", transaction);
+            Thread.sleep(1000);
         }
-        transactionList.add(transaction);
-        transactionListWithPayment.add(transaction);
-        LedgerOperations.updateCSVFile(transactionList);
-        Thread.sleep(1000);
     }
 
     /**

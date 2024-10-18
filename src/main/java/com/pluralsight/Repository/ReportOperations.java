@@ -34,29 +34,29 @@ public interface ReportOperations {
     /**
      * Generates a report for the month-to-date transactions.
      */
-    void generateMonthToDateReport();
+    void generateMonthToDateReport() throws InterruptedException;
 
     /**
      * Generates a report for the previous month's transactions.
      */
-    void generatePreviousMonthReport();
+    void generatePreviousMonthReport() throws InterruptedException;
 
     /**
      * Generates a report for the year-to-date transactions.
      */
-    void generateYearToDateReport();
+    void generateYearToDateReport() throws InterruptedException;
 
     /**
      * Generates a report for the previous year's transactions.
      */
-    void generatePreviousYearReport();
+    void generatePreviousYearReport() throws InterruptedException;
 
     /**
      * Searches and prints transactions by the vendor name.
      *
      * @param vendorName the name of the vendor
      */
-    void searchByVendorName(String vendorName);
+    void searchByVendorName(String vendorName) throws InterruptedException;
 
     /**
      * Performs a custom search on transactions based on various properties.

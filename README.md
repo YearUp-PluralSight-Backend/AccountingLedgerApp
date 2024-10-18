@@ -163,7 +163,7 @@ public static Transaction userInput() {
 Run the main class `AccountingLedgerApplication` to start the application:
 
 ```
-java -cp target/accounting-ledger-app-1.0-SNAPSHOT.jar com.pluralsight.AccountingLedgerApplication
+java -cp target/accounting-ledger-app-1.0-SNAPSHOT.jar com.pluralsight.service.AccountingLedgerApplication
 ```
 
 ## Usage
