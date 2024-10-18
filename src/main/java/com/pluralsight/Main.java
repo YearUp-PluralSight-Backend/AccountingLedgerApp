@@ -15,6 +15,6 @@ public class Main {
      * @param args Command line arguments  | not used
      */
     public static void main(String[] args) {
-        AccountingLedgerApplication.getInstance().storeHomeScreen();
+        AccountingLedgerApplication.getInstance("inventory.csv").storeHomeScreen();
     }
 }

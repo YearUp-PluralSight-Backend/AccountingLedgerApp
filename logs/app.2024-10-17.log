@@ -1,0 +1,45 @@
+2024-10-17 12:34:20 INFO  c.p.Repository.LedgerOperations - Reading the csv file inventory.csv
+2024-10-17 12:34:20 INFO  c.p.Repository.LedgerOperations - Finished reading the file inventory.csv
+2024-10-17 12:34:20 INFO  c.p.Repository.LedgerOperations - Loaded 71 transactions from inventory.csv
+2024-10-17 12:34:20 INFO  c.p.AccountingLedgerApplication - Showing Home Screen!
+2024-10-17 12:34:23 INFO  com.pluralsight.utils.InputUtil - User input string: l
+2024-10-17 12:34:24 INFO  com.pluralsight.utils.InputUtil - User input string: r
+2024-10-17 12:34:24 INFO  com.pluralsight.Report - Showing ReportScreen Now!
+2024-10-17 12:34:26 INFO  com.pluralsight.utils.InputUtil - User input string: 6
+2024-10-17 12:34:27 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:34:32 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:34:36 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:34:38 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:34:39 INFO  com.pluralsight.utils.InputUtil - User input double: 0.0
+2024-10-17 12:34:39 INFO  com.pluralsight.Report - Performing custom search function!
+2024-10-17 12:35:39 INFO  c.p.Repository.LedgerOperations - Reading the csv file inventory.csv
+2024-10-17 12:35:39 INFO  c.p.Repository.LedgerOperations - Finished reading the file inventory.csv
+2024-10-17 12:35:39 INFO  c.p.Repository.LedgerOperations - Loaded 71 transactions from inventory.csv
+2024-10-17 12:35:39 INFO  c.p.AccountingLedgerApplication - Showing Home Screen!
+2024-10-17 12:35:41 INFO  com.pluralsight.utils.InputUtil - User input string: l
+2024-10-17 12:35:42 INFO  com.pluralsight.utils.InputUtil - User input string: r
+2024-10-17 12:35:42 INFO  com.pluralsight.Report - Showing ReportScreen Now!
+2024-10-17 12:36:09 INFO  com.pluralsight.utils.InputUtil - User input string: 6
+2024-10-17 12:36:10 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:36:10 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:36:11 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:36:11 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:36:12 INFO  com.pluralsight.utils.InputUtil - User input double: 0.0
+2024-10-17 12:36:12 INFO  com.pluralsight.Report - Performing custom search function!
+2024-10-17 12:36:54 INFO  c.p.Repository.LedgerOperations - Reading the csv file inventory.csv
+2024-10-17 12:36:54 INFO  c.p.Repository.LedgerOperations - Finished reading the file inventory.csv
+2024-10-17 12:36:54 INFO  c.p.Repository.LedgerOperations - Loaded 71 transactions from inventory.csv
+2024-10-17 12:36:54 INFO  c.p.AccountingLedgerApplication - Showing Home Screen!
+2024-10-17 12:37:14 INFO  com.pluralsight.utils.InputUtil - User input string: l
+2024-10-17 12:37:15 INFO  com.pluralsight.utils.InputUtil - User input string: r
+2024-10-17 12:37:15 INFO  com.pluralsight.Report - Showing ReportScreen Now!
+2024-10-17 12:37:16 INFO  com.pluralsight.utils.InputUtil - User input string: 6
+2024-10-17 12:37:18 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:37:18 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:37:18 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:37:18 INFO  com.pluralsight.utils.InputUtil - User input string: 
+2024-10-17 12:37:19 INFO  com.pluralsight.utils.InputUtil - User input double: 0.0
+2024-10-17 12:37:19 INFO  com.pluralsight.Report - Performing custom search function!
+2024-10-17 12:37:27 INFO  com.pluralsight.utils.InputUtil - User input string: 0
+2024-10-17 12:37:29 INFO  com.pluralsight.utils.InputUtil - User input string: h
+2024-10-17 12:37:30 INFO  com.pluralsight.utils.InputUtil - User input string: x

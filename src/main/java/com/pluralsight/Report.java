@@ -91,7 +91,7 @@ public class Report implements ReportOperations {
      * The loop continues until the user chooses to go back to the ledger screen.
      */
     public void reportScreen() {
-        logger.info("Showing ReportScreen Now!");
+        logger.info("Showing Report Screen!");
         while (true) {
             try {
                 reportScreenMenu();
@@ -129,7 +129,7 @@ public class Report implements ReportOperations {
                 }
             } catch (Exception e) {
                 logger.error("Error processing the option: ", e);
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
@@ -251,15 +251,18 @@ public class Report implements ReportOperations {
     public void customSearch(LocalDate startDate, LocalDate endDate, String description, String vendorName, double amount) throws InterruptedException {
         logger.info("Performing custom search function!");
         InputUtil.header();
-        for (Transaction transaction : transactionList) {
+
+        transactionList.stream().filter(transaction -> {
             if (transaction.getCreatedDateTime().toLocalDate().isAfter(startDate) || transaction.getCreatedDateTime().toLocalDate().isBefore(endDate) ||
                     isEqualWithString(transaction.getVendor(), vendorName) || isEqualWithString(transaction.getDescription(), description) ||
                     isEqualWithDouble(transaction.getAmount(), amount)) {
-                System.out.println(transaction);
+                return true;
             } else {
-                System.out.println(transaction);
+                return false;
             }
-        }
+
+        }).sorted(Comparator.comparing(Transaction::getCreatedDateTime).reversed()).forEachOrdered(System.out::println);
+
         InputUtil.footer();
         Thread.sleep(2000);
     }

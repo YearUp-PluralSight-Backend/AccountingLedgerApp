@@ -20,7 +20,7 @@ public abstract class LedgerOperations {
     // Date and time when the ledger was created
     protected LocalDateTime createdDateTime;
     // The Database or CSV file name
-    protected static String FILENAME = "inventory.csv";
+    protected static final String FILENAME = "inventory.csv";
     // For logging
     protected static Logger logger = LoggerFactory.getLogger(LedgerOperations.class);
     // List of all transactions

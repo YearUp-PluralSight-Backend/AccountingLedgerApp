@@ -30,7 +30,7 @@ public class AccountingLedgerApplication {
      *
      * @return The singleton instance of AccountingLedgerAPP
      */
-    public static AccountingLedgerApplication getInstance() {
+    public static AccountingLedgerApplication getInstance(String fileName) {
         if (accountingLedgerApp == null) {
             accountingLedgerApp = new AccountingLedgerApplication();
         }
@@ -42,7 +42,6 @@ public class AccountingLedgerApplication {
      * The loop continues until the user chooses to exit.
      */
     public void storeHomeScreen() {
-
         logger.info("Showing Home Screen!");
         boolean flag = true;
         while (flag) {

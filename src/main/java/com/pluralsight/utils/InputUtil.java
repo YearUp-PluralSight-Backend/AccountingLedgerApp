@@ -9,14 +9,19 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
+/**
+ * Utility class for handling user input and formatting transactions.
+ */
 public class InputUtil {
 
-
-    // For
+    // Logger instance for logging information
     private static final Logger logger = LoggerFactory.getLogger(InputUtil.class);
+    // DateTimeFormatter for formatting date and time
     public final static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US);
+    // DateTimeFormatter for formatting date
     public final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US);
 
+    // Scanner instance for reading user input
     private static Scanner scanner = new Scanner(System.in);
 
     /**
@@ -38,6 +43,11 @@ public class InputUtil {
         return value;
     }
 
+    /**
+     * Prompt for a string value from the user without a prompt message.
+     *
+     * @return The input value
+     */
     public static String promptForString() {
         String value = "";
         try {
@@ -50,6 +60,12 @@ public class InputUtil {
         return value;
     }
 
+    /**
+     * Prompt for an integer value from the user.
+     *
+     * @param prompt Message to show the user
+     * @return The input value
+     */
     public static int promptForInteger(String prompt) {
         System.out.println(prompt);
         int value = 0;
@@ -63,6 +79,11 @@ public class InputUtil {
         return value;
     }
 
+    /**
+     * Prompt for an integer value from the user without a prompt message.
+     *
+     * @return The input value
+     */
     public static int promptForInteger() {
         int value = 0;
         try {
@@ -75,6 +96,12 @@ public class InputUtil {
         return value;
     }
 
+    /**
+     * Prompt for a double value from the user.
+     *
+     * @param prompt Message to show the user
+     * @return The input value
+     */
     public static Double promptForDouble(String prompt) {
         System.out.println(prompt);
         double value = 0;
@@ -93,6 +120,14 @@ public class InputUtil {
         }
         return value;
     }
+
+    /**
+     * Prompt for a double value from the user with a default value.
+     *
+     * @param prompt Message to show the user
+     * @param defaultValue The default value if input is empty
+     * @return The input value
+     */
     public static Double promptForDouble(String prompt, double defaultValue) {
         System.out.println(prompt);
         double value = 0;
@@ -101,7 +136,6 @@ public class InputUtil {
             if (stringValue.isBlank() && stringValue.isEmpty()) {
                 value = defaultValue;
             }
-//            value = stringValue;
             logger.info("User input double: {}", value);
         } catch (Exception e) {
             logger.error("Error while reading double input: ", e);
@@ -111,7 +145,11 @@ public class InputUtil {
         return value;
     }
 
-
+    /**
+     * Prompt for a double value from the user without a prompt message.
+     *
+     * @return The input value
+     */
     public static Double promptForDouble() {
         double value = 0;
         try {
@@ -124,6 +162,12 @@ public class InputUtil {
         return value;
     }
 
+    /**
+     * Prompt for a short value from the user.
+     *
+     * @param prompt Message to show the user
+     * @return The input value
+     */
     public static short promptForShort(String prompt) {
         System.out.println(prompt);
         short value = 0;
@@ -137,6 +181,11 @@ public class InputUtil {
         return value;
     }
 
+    /**
+     * Format a transaction and print it.
+     *
+     * @param transaction The transaction to format
+     */
     public static void formatTransaction(Transaction transaction) {
         String content =
                 """
@@ -151,6 +200,11 @@ public class InputUtil {
         System.out.println(content);
     }
 
+    /**
+     * Prompt the user for transaction details and create a Transaction object.
+     *
+     * @return The created Transaction object
+     */
     public static Transaction userInput() {
         try {
             String dateTime = promptForString("Enter the Date time (yyyy-MM-dd HH:mm:ss) Or default Today's Now: ");
@@ -183,26 +237,26 @@ public class InputUtil {
         return null;
     }
 
+    /**
+     * Display a list of transactions with formatted output.
+     *
+     * @param transactionList The list of transactions to display
+     */
     public static void displayDataWithFormat(List<Transaction> transactionList) {
         header();
         transactionList.stream()
                 .sorted(Comparator.comparing(Transaction::getCreatedDateTime).reversed())
                 .forEach(System.out::println);
 
-//        OtherTypeTransaction is also son of the Transacion;
-//        FinancialTransaction is son of the Transaction ;
         Comparator<Transaction> comparator = Comparator.comparing(Transaction::getCreatedDateTime).reversed();
         Collections.sort(transactionList, comparator);
-
-//        Collections.sort(FinancialTransactionList, comparator);
-//        Collections.sort(OtherTypeTransaction, comparator);
-
-
-//        It covers generic and polymorphism
 
         footer();
     }
 
+    /**
+     * Print the header for the transaction display.
+     */
     public static void header() {
         String header = """
                 | %-20s | %-40s | %-20s | $%-20s |
@@ -211,6 +265,9 @@ public class InputUtil {
         System.out.print(header);
     }
 
+    /**
+     * Print the footer for the transaction display.
+     */
     public static void footer() {
         String footer = """
                 ------------------------------------------------------------------------------------------------------------------
@@ -220,6 +277,11 @@ public class InputUtil {
         System.out.println(footer);
     }
 
+    /**
+     * Format and print the output for a double value.
+     *
+     * @param d The double value to format
+     */
     public static void formatOuput(double d) {
         String value = """
                 ------------------------------------------------------------------------------------------------------------------

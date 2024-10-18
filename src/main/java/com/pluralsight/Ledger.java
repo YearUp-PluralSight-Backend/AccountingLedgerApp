@@ -196,6 +196,7 @@ public class Ledger extends LedgerOperations {
      */
     @Override
     public void ledgerScreen() {
+        logger.info("Showing Ledger Screen!");
 
         while (true) {
             try {
@@ -217,7 +218,7 @@ public class Ledger extends LedgerOperations {
                     default -> System.out.println("Invalid Option. Please choose between (ALL, D, P, B, R, H)\n");
                 }
             } catch (Exception e) {
-                logger.info("Wrong command or Option!");
+                logger.error("Wrong command or option!");
                 e.printStackTrace();
             }
         }
@@ -230,10 +231,9 @@ public class Ledger extends LedgerOperations {
      * @return The current balance
      */
     private double showBalance() {
-
+        logger.info("Showing balance!");
         double depositSum = transactionListWithDeposit.stream().mapToDouble(Transaction::getAmount).sum();
         double paymentSum = transactionListWithPayment.stream().mapToDouble(Transaction::getAmount).sum();
-
         return depositSum - paymentSum;
     }
 
@@ -244,6 +244,7 @@ public class Ledger extends LedgerOperations {
      */
     @Override
     public void addDeposit() throws InterruptedException {
+        logger.info("Adding deposit!");
         Transaction transaction = userInput();
         if (transaction == null) {
             Thread.sleep(1000);
@@ -265,6 +266,8 @@ public class Ledger extends LedgerOperations {
      */
     @Override
     public void makePayment() throws InterruptedException {
+        logger.info("Making Payment!");
+
         Transaction transaction = userInput();
         if (transaction == null) {
             Thread.sleep(1000);
@@ -283,6 +286,7 @@ public class Ledger extends LedgerOperations {
      */
     @Override
     public void displayPaymentEntries() throws InterruptedException {
+        logger.info("Display payment entries!");
         InputUtil.displayDataWithFormat(transactionListWithPayment);
         Thread.sleep(2000);
     }
@@ -294,6 +298,7 @@ public class Ledger extends LedgerOperations {
      */
     @Override
     public void displayDepositEntries() throws InterruptedException {
+        logger.info("Display deposit entries!");
         InputUtil.displayDataWithFormat(transactionListWithDeposit);
         Thread.sleep(2000);
     }
@@ -305,6 +310,7 @@ public class Ledger extends LedgerOperations {
      */
     @Override
     public void displayAllEntries() throws InterruptedException {
+        logger.info("Display entries!");
         InputUtil.displayDataWithFormat(transactionList);
         Thread.sleep(2000);
     }
@@ -316,6 +322,7 @@ public class Ledger extends LedgerOperations {
      */
     @Override
     public void initializingData(List<Transaction> transactions) {
+        logger.info("Display entries for transactionListWithDeposit, transactionListWithPayment");
         for (Transaction transaction : transactions) {
             if (isNegative(transaction.getAmount())) {
                 transactionListWithDeposit.add(transaction);
