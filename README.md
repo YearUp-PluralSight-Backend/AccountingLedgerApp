@@ -103,8 +103,6 @@ The project is organized into several key classes:
 
     - Custom InputUtil class suggests handling of user input and output formatting.
 
-This project covers a wide range of Java features, making it a good example of a moderately complex Java application. It demonstrates both core Java concepts and more advanced features introduced in recent Java versions.
-
 ---
 
 
@@ -167,7 +165,6 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - Reference : [How to use the Collections Framework](https://www.baeldung.com/java-collections)
 - Reference : [How to use Comparator.Comparing](https://www.baeldung.com/java-8-comparator-comparing)
 - Reference : [How to Format the DateTime](https://www.geeksforgeeks.org/instant-truncatedto-method-in-java-with-examples/#)
-
 
 ## Contact
 
