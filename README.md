@@ -3,18 +3,6 @@
 
 This is my first capstone project at Year Up United, developed using Java. It reads data from a CSV file and provides a simple command-line interface for managing financial tasks. Users can add deposits, make payments, view transaction history, and generate various financial reports.
 
-## Table of Contents
-- [Features](##Features)
-- [Project Structure](Project-Structure)
-- [Getting Started](Getting-Started)
-- [Project Structure](Project-Structure)
-- [Prerequisites](Prerequisites)
-- [Installation](Installation)
-- [Running the Application](Running-the-Application)
-- [Usage](Usage)
-- [Acknowledgments](Acknowledgments)
-- [Contact](Contact)
- 
 
 ## Features
 
@@ -57,6 +45,12 @@ The project is organized into several key classes:
 - `Report`: Generates various financial reports based on the transaction data.
 - `Transaction`: Represents individual financial transactions.
 - `InputUtil`: Utility class for handling user input and formatting output.
+
+
+## ScreenShots
+-<img width="579" alt="Screenshot 2024-10-18 at 08 43 34" src="https://github.com/user-attachments/assets/1c65c196-3425-4b99-9c25-45e8a98f0949">
+-<img width="583" alt="Screenshot 2024-10-18 at 08 44 01" src="https://github.com/user-attachments/assets/73009dd7-7b56-4a9e-9bab-ccecbb5ed0e8">
+-<img width="586" alt="Screenshot 2024-10-18 at 08 44 16" src="https://github.com/user-attachments/assets/d4a13d73-c761-411d-8cb9-28070596d532">
 
 ### Prerequisites
 
