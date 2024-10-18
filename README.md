@@ -4,7 +4,7 @@
 This is my first capstone project at Year Up United, developed using Java. It reads data from a CSV file and provides a simple command-line interface for managing financial tasks. Users can add deposits, make payments, view transaction history, and generate various financial reports.
 
 ## Table of Contents
-- [Features](Features)
+- [Features](##Features)
 - [Project Structure](Project-Structure)
 - [Getting Started](Getting-Started)
 - [Project Structure](Project-Structure)
