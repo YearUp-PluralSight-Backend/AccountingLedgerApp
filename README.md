@@ -61,6 +61,78 @@ The project is organized into several key classes:
 #### ***Example of Data***
 -<img width="558" alt="Screenshot 2024-10-18 at 08 48 36" src="https://github.com/user-attachments/assets/91fa6e78-83a3-40f9-b12b-5fa5d30a7c9a">
 
+
+## Interesting Code
+By implement the singleton instance, I believe it can save a lot of resources!
+
+```java
+
+// Singleton instance of the AccountingLedgerAPP class
+    private static AccountingLedgerApplication accountingLedgerApp;
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private AccountingLedgerApplication() {
+    }
+
+    /**
+     * Returns the singleton instance of the AccountingLedgerAPP class.
+     * If the instance is null, it initializes it.
+     *
+     * @return The singleton instance of AccountingLedgerAPP
+     */
+    public static AccountingLedgerApplication getInstance(String fileName) {
+        if (accountingLedgerApp == null) {
+            accountingLedgerApp = new AccountingLedgerApplication();
+        }
+        return accountingLedgerApp;
+    }
+
+```
+
+----------------------------------------------------------------------------------------------------
+
+
+By implement the userInput, I think it will make my code more concise and clean
+
+
+```java
+
+public static Transaction userInput() {
+        try {
+            String dateTime = promptForString("Enter the Date time (yyyy-MM-dd HH:mm:ss) Or default Today's Now: ");
+
+            LocalDateTime createdDateTime;
+
+            if (dateTime.isBlank() || dateTime.isEmpty()) {
+                createdDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+                System.out.println("You have used the default time: Now " + createdDateTime);
+
+            } else {
+                createdDateTime = LocalDateTime.parse(dateTime, InputUtil.dateTimeFormatter);
+            }
+
+            String vendorName = promptForString("Enter the Vendor Name: ");
+            String description = promptForString("Enter the Description: ");
+            Double amount = promptForDouble("Enter the Amount: ");
+
+            System.out.println();
+            Transaction transaction = new Transaction(createdDateTime, description, vendorName, amount);
+            logger.info("Created transaction: {}", transaction);
+
+            return transaction;
+        } catch (Exception e) {
+            logger.error("Error while processing user input: ", e);
+            System.out.println("Date Time Format issues! Please try it again!");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+```
+
+
 ## Get Started
 
 ### Prerequisites
